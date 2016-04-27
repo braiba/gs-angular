@@ -1,0 +1,20 @@
+{
+  "film": {
+    "name": "Film"
+  },
+  "nintendo": {
+    "name": "Nintendo"
+  },
+  "retro": {
+    "name": "Retro"
+  },
+  "sci-fi": {
+    "name": "Sci-Fi"
+  },
+  "tv": {
+    "name": "TV"
+  },
+  "video-games": {
+    "name": "Video Games"
+  }
+}

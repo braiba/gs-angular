@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "product": {
+        "handle": "1up-mushroom",
+        "name": "1UP Mushroom",
+        "price": 5.00
+      },
+      "quantity": 2
+    }
+  ],
+  "itemTotal": 10.00,
+  "shipping": "uk",
+  "shippingCost": 1.50,
+  "count": 1,
+  "total": 11.50
+}
