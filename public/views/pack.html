@@ -1,0 +1,37 @@
+<h1>{{ pack.name }}</h1>
+
+<div class="fullview pattern">
+    <div class="categories" ng-hide="pack.categories.length == 0">
+        <span class="label">Categories:</span>
+
+        <a ng-repeat="category in pack.categories"
+            class="category_link"
+            href="{{ category.link }}"
+        >
+            {{ category.name }}
+        </a>
+    </div>
+
+    <div class="image">
+        <img
+            title="{{ pack.name }}"
+            src="{{ pack.images.size400 }}"
+            width="400"
+            height="400"
+            alt="{{ pack.name }}"
+        >
+    </div>
+
+    <div>
+        <p><b>Cost:</b> {{ pack.price|currency:'&pound;' }}</p>
+
+        <p>
+            If you have any questions about this pack, please check out <a href="#/faq">the FAQ page</a>
+            or feel free to <a href="#/contact-us">contact us</a>.
+        </p>
+
+        <p style="font-size:large; text-align:center; color: #888;">
+            [ <a href="./cart/add/1up-mushroom">Click Here to Add to Cart</a> ]
+        </p>
+    </div>
+</div>

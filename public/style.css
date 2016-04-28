@@ -27,7 +27,7 @@ h1 {
 body {
 	background: url(img/bg.jpg) repeat-x;
 	text-align: center;
-	font: 11px arial, sans-serif;
+	font: 12px arial, sans-serif;
 	color: #5D5D5D;
 }
 #wrapper {
@@ -106,7 +106,7 @@ body {
 	font-weight:bold;
 }
 
-#sidebar .category_link .icon {background-position: 0 0;}
+#sidebar .category_link .icon {background-position: 0 0; margin-bottom: 2px;}
 #sidebar .category_link:hover .icon {background-position: -48px 0;}
 
 #sidebar .category_link.film .icon {background-position: 0 -48px;}
@@ -161,6 +161,7 @@ body {
 	position: absolute;
 	background: top right url(img/main_background.png) no-repeat #FFF;
 	width: 550px;
+	min-height: 400px;
 	top: 0;
 	left: 259px;
 	overflow: hidden;
@@ -168,15 +169,15 @@ body {
 .messages {
 	font-weight:bold;	
 }
-#main>.cart_info {
+#main .cart_info {
 	padding: 60px 80px 8px 60px;
 	text-align:right;
 }
-#main>.content {
+#main .content {
 	padding: 0 80px 84px 60px;
 }
 #main h2 {
-	font: 14px "Times new roman", "Lucida Grande", serif;
+	font-size: 18px;
 	font-weight: normal;
 	margin-top: 25px;
 }
@@ -215,10 +216,10 @@ body {
 
 #main .blogpost h2 {
   font-size: 18px;
-	font-weight: bold;
-	border-bottom: solid 1px #999;
-	margin-bottom: 2px;
-	padding-left: 4px;
+  font-weight: bold;
+  border-bottom: solid 1px #999;
+  margin-bottom: 2px;
+  padding-left: 4px;
   color: #555;
 }
 #main .blogpost .info {

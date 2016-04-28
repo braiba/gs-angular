@@ -1,0 +1,86 @@
+<h1>Your Geek Stitch Shopping Cart</h1>
+
+<table class="cart" width="100%">
+    <thead>
+        <tr><th colspan="2">&nbsp;</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="cartItem in cart.items">
+            <td>
+                <a ng-href="{{ cartItem.product.link }}">
+                    <img
+                        width="75"
+                        height="75"
+                        ng-title="{{ cartItem.product.name }}"
+                        ng-src="{{ cartItem.product.images.size75 }}"
+                        ng-alt="{{ cartItem.product.name }}"
+                    />
+                </a>
+            </td>
+            <td>
+                <a ng-href="{{ cartItem.product.link }}">
+                    {{ cartItem.product.name }}
+                </a>
+            </td>
+            <td>
+                {{ cartItem.product.price|currency:"&pound;" }}
+            </td>
+            <td>
+                <input
+                    ng-model="cartItem.quantity"
+                    type="number"
+                    min="1"
+                    style="width: 42px; text-align: center"
+                />
+            </td>
+            <td>
+                {{ (cartItem.product.price * cartItem.quantity)|currency:"&pound;" }}
+            </td>
+            <td><a href="./cart/remove/1up-mushroom"><img src="./img/icon/delete.gif" alt="del" title="del"></a></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" style="text-align: right">
+                <p ng-repeat="(handle, shippingType) in shippingTypes">
+                    <label ng-for="shipping_type_{{ handle }}">
+                        <input
+                            type="radio"
+                            id="shipping_type_{{ handle }}"
+                            name="shipping_type"
+                            ng-model="cart.shipping"
+                            ng-value="handle"
+                            ng-checked="handle == cart.shipping"
+                        >
+
+                        {{ shippingType.name }} ({{ shippingType.cost|currency:'&pound;' }})
+                    </label>
+                </p>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: right; padding: 12px; font-weight: bold">Total:</td>
+            <td>{{ cart.total|currency:'&pound;' }}</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tfoot>
+</table>
+
+<form method="post" action="./order/expresscheckout">
+    <p style="text-align:center">
+        <input
+            type="image"
+            name="submit"
+            src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"
+            border="0"
+            align="top"
+            alt="Check out with PayPal"
+        >
+    </p>
+</form>

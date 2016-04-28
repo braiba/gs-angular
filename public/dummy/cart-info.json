@@ -4,7 +4,11 @@
       "product": {
         "handle": "1up-mushroom",
         "name": "1UP Mushroom",
-        "price": 5.00
+        "link": "#/pack/1up-mushroom",
+        "price": 5.00,
+        "images": {
+          "size75": "./img/patterns/previews/thumbnails/1up-mushroom(75x75).png"
+        }
       },
       "quantity": 2
     }

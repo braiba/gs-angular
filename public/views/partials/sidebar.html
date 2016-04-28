@@ -1,0 +1,55 @@
+<div id="sidebar">
+    <div id="header">
+        <div id="logo">
+            <a href="./" style="text-decoration:none;">
+                <img src="./img/logo.png" width="228" height="190" alt="Geek Stitch" style="display:inline-block"/>
+            </a>
+        </div>
+    </div>
+
+    <div id="head_nav">
+        <div class="content" ng-controller="CategoryPanelController" gs-type="genre">
+            <table class="grid_table">
+                <tbody>
+                <tr ng-repeat="itemRows in chunkedItems">
+                    <td ng-repeat="(handle, item) in itemRows" width="33.3%">
+                        <a ng-attr-class="category_link {{ handle }}" ng-href="{{ item.link }}">
+                            <span class="icon"></span>
+
+                            <span ng-bind-html="item.name"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p class="all_link">&laquo; <a href="#/genre">view all genres</a> &raquo;</p>
+        </div>
+    </div>
+
+    <div id="splash"></div>
+
+    <div id="tail_nav">
+        <div class="content" ng-controller="CategoryPanelController" gs-type="fandom">
+            <table class="grid_table">
+                <tbody>
+                <tr ng-repeat="itemRows in chunkedItems">
+                    <td ng-repeat="(handle, item) in itemRows" width="33.3%">
+                        <a ng-attr-class="category_link {{ handle }}" ng-href="{{ item.link }}">
+                            <span class="icon"></span>
+
+                            <span ng-bind-html="item.name"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p class="all_link">&laquo; <a href="#/fandom">view all fandoms</a> &raquo;</p>
+        </div>
+    </div>
+
+    <br />
+
+    <div id="sidebar_foot"></div>
+</div>

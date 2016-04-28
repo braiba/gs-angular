@@ -1,0 +1,18 @@
+{
+  "final-fantasy": {
+    "name": "Final Fantasy",
+    "link": "#/fandom/final-fantasy"
+  },
+  "friendship-is-magic": {
+    "name": "Friendship is Magic",
+    "link": "#/fandom/friendship-is-magic"
+  },
+  "mario": {
+    "name": "Mario",
+    "link": "#/fandom/mario"
+  },
+  "pokemon": {
+    "name": "Pok&eacute;mon",
+    "link": "#/fandom/pokemon"
+  }
+}

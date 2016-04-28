@@ -1,0 +1,37 @@
+<h1>Browse {{ category.name }} Patterns</h1>
+
+<ng-hide="category.offers.length == 0">
+<p>If you're interested in {{ category.name }} patterns you may be interested in these offers:</p>
+<ul class="offers">
+    <li ng-repeat="offer in category.offers">
+        <a class="category_link" href="{{ offer.link }}">{{ offer.name }}</a>
+
+        (<span ng-bind-html="offer.description"></span>)
+    </li>
+</ul>
+
+<table class="browse grid_table">
+    <tbody>
+        <tr ng-repeat="packRow in chunkedPacks">
+            <td ng-repeat="pack in packRow" width="20%">
+                <div class="pattern">
+                    <div class="image" style="width:75px; height:75px;">
+                        <a href="{{ pack.link }}">
+                            {{ image = pack.images.size75;"" }}
+                            <img
+                                width="{{ image.width }}"
+                                height="{{ image.height}}"
+                                src="{{ image.src }}"
+                                alt="{{ pack.name }}"
+                            >
+                        </a>
+                    </div>
+
+                    <p>
+                        <a href="{{ pack.link }}">{{ pack.name }}</a>
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

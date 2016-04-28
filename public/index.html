@@ -1,0 +1,48 @@
+<!doctype html>
+<html ng-app="geekstitch">
+<head>
+    <title>Geek Stitch | Cross Stitch for Geeks</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="generator" content="Geek Stitch Bespoke Framework">
+    <meta name="Description" content="Geeky Cross Stitch Packs - everything from Mario to My Little Pony, Dr Who to Transformers and Batman to Supernatural" />
+    <meta name="Keywords" content="Geek Stitch, cross stitch, Crossstitch, geeky, geeks" />
+    <meta name="google-site-verification" content="T-Ud3OxdeLiBnwH_tAqe-cuiuVFpAJEHsyOVmV-6ax4" />
+    <link rel="index" href="http://www.geekstitch.co.uk/" title="Geek Stitch">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-sanitize.js"></script>
+    <script src="geekstitch.js"></script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-32123265-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+</head>
+<body>
+<div id="wrapper">
+
+    <ng-include src="'views/partials/sidebar.html'"></ng-include>
+
+    <div id="main">
+        <ng-include src="'views/partials/header.html'"></ng-include>
+
+        <div class="content">
+            <ng-view></ng-view>
+        </div>
+
+        <ng-include src="'views/partials/footer.html'"></ng-include>
+
+    </div>
+</div>
+</body>
+</html>

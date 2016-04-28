@@ -1,0 +1,31 @@
+<h1>{{ offer.name }}</h1>
+
+<p ng-bind-html="offer.description"></p>
+
+<p><a href="#/contact-us">Contact us</a> to place an order. (Online ordering coming soon!)</p>
+
+<table class="browse grid_table">
+    <tbody>
+    <tr ng-repeat="packRow in chunkedPacks">
+        <td ng-repeat="pack in packRow" width="20%">
+            <div class="pattern">
+                <div class="image" style="width:75px; height:75px;">
+                    <a href="{{ pack.link }}">
+                        {{ image = pack.images.size75;"" }}
+                        <img
+                            width="{{ image.width }}"
+                            height="{{ image.height}}"
+                            src="{{ image.src }}"
+                            alt="{{ pack.name }}"
+                        >
+                    </a>
+                </div>
+
+                <p>
+                    <a href="{{ pack.link }}">{{ pack.name }}</a>
+                </p>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

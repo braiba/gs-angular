@@ -1,0 +1,26 @@
+{
+  "film": {
+    "name": "Film",
+    "link": "#/genre/film"
+  },
+  "nintendo": {
+    "name": "Nintendo",
+    "link": "#/genre/nintendo"
+  },
+  "retro": {
+    "name": "Retro",
+    "link": "#/genre/retro"
+  },
+  "sci-fi": {
+    "name": "Sci-Fi",
+    "link": "#/genre/sci-fi"
+  },
+  "tv": {
+    "name": "TV",
+    "link": "#/genre/tv"
+  },
+  "video-games": {
+    "name": "Video Games",
+    "link": "#/genre/video-games"
+  }
+}
