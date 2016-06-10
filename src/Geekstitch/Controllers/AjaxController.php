@@ -18,8 +18,6 @@ class AjaxController
     {
         $basket = Di::getInstance()->getBasket();
 
-        $shippingType = $basket->getShippingType();
-
         $itemData = array();
         foreach ($basket->getItems() as $item) {
             $product = $item->getProduct();
@@ -36,6 +34,8 @@ class AjaxController
             );
         }
 
+        $shippingType = $basket->getShippingType();
+
         $data = array(
             'items' => $itemData,
             'itemTotal' => $basket->getItemTotal(),
@@ -51,56 +51,48 @@ class AjaxController
         return new JsonView($data);
     }
 
-    public function categoryAction($categoryId)
+    public function categoryAction($handle)
     {
-        $category = new Category($categoryId);
+        $em = Di::getInstance()->getEntityManager();
 
-        $offerData = [];
-
-        $db = Di::getInstance()->getDb();
-
-        $sql = <<<SQL
-SELECT
-patterns.*
-FROM patterns
-JOIN category_membership USING (pattern_ID)
-WHERE category_ID = {$categoryId}
-SQL;
-        $res = $db->query($sql);
+        /** @var Category $category */
+        $category = $em->getRepository('Geekstitch\\Entity\\Category')->findOneBy(['handle' => $handle]);
+        if ($category === null) {
+            return new JsonView(['error' => 'Category not found'], 404);
+        }
 
         $packData = [];
-        while ($row = $res->fetch()) {
-            $product = new Product();
-            $product->initFromArray($row);
+        foreach ($category->getProducts() as $product) {
             $packData[] = [
                 'name' => $product->getName(),
-                'link' => '#/offer/' . $product->getHandle(),
+                'link' => '#/packs/' . $product->getHandle(),
                 'images' => [], //TODO:
             ];
         }
 
+        $offerData = [];
+        // TODO: offer data
+
         $data = [
             'name' => $category->getName(),
-            'link' => null, // TODO:
+            'link' => '#/' . $category->getCategoryType()->getHandle() . '/' . $category->getHandle(),
             'offers' => $offerData,
             'packs' => $packData,
         ];
-
-        // TODO: get genres from DB
 
         return new JsonView($data);
     }
 
     public function genresAction()
     {
-        $data = $this->getCategoryData(CategoryType::ID_GENRE, 'genres');
+        $data = $this->getCategoryData(CategoryType::ID_GENRE);
 
         return new JsonView($data);
     }
 
     public function fandomsAction()
     {
-        $data = $this->getCategoryData(CategoryType::ID_FANDOM, 'fandoms');
+        $data = $this->getCategoryData(CategoryType::ID_FANDOM);
 
         return new JsonView($data);
     }
@@ -114,28 +106,43 @@ SQL;
         return new JsonView($data);
     }
 
-    public function packAction($id)
+    public function packAction($handle)
     {
-        $data = array();
+        $em = Di::getInstance()->getEntityManager();
 
-        // TODO: get pack from DB
+        /** @var Product $product */
+        $product = $em->getRepository('Geekstitch\\Entity\\Product')->findOneBy(['handle' => $handle]);
+        if ($product === null) {
+            return new JsonView(['error' => 'Pack not found'], 404);
+        }
+
+        $categoriesData = [];
+        foreach ($product->getCategories() as $category) {
+            $categoriesData[] = [
+                'name' => $category->getName(),
+                'handle' => $category->getHandle(),
+                'link' => '#/' . $category->getCategoryType()->getHandle() . '/' . $category->getHandle(),
+            ];
+        }
+
+        $data = [
+            'name' => $product->getName(),
+            'price' => $product->getPrice(),
+            'link' => '#/packs/' . $product->getHandle(),
+            'categories' => $categoriesData,
+        ];
 
         return new JsonView($data);
     }
 
     public function shippingTypesAction()
     {
-        // TODO:
+        $em = Di::getInstance()->getEntityManager();
 
         /** @var ShippingType[] $shippingTypes */
-        $shippingTypes = [
-            new ShippingType(1),
-            new ShippingType(2),
-            new ShippingType(3),
-        ];
+        $shippingTypes = $em->getRepository('Geekstitch\\Entity\\ShippingType')->findAll();
 
-        $data = array();
-
+        $data = [];
         foreach ($shippingTypes as $shippingType) {
             $data[$shippingType->getHandle()] = [
                 'name' => $shippingType->getName(),
@@ -148,33 +155,36 @@ SQL;
 
     /**
      * @param int $categoryTypeId
-     * @param string $categoryTypeHandle
      *
      * @return array
      */
-    protected function getCategoryData($categoryTypeId, $categoryTypeHandle)
+    protected function getCategoryData($categoryTypeId)
     {
-        $important = (isset($_GET['important']) ? 1 : 0);
+        $importantOnly = (isset($_GET['important']) ? true : false);
 
-        $sql = <<<SQL
-SELECT *
-FROM categories
-WHERE category_type_id = {$categoryTypeId}
-AND (important OR NOT {$important})
-ORDER BY name;
-SQL;
-        $res = Di::getInstance()->getDb()->query($sql);
+        $em = Di::getInstance()->getEntityManager();
+
+        /** @var CategoryType $categoryType */
+        $categoryType = $em->find('Geekstitch\\Entity\\CategoryType', $categoryTypeId);
+        if ($categoryType === null) {
+            return new JsonView(['error' => 'Category type not found'], 404);
+        }
+
+        $categoryTypeHandle = $categoryType->getHandle();
 
         $data = [];
-        while ($row = $res->fetch()) {
-            $category = new Category();
-            $category->initFromArray($row);
+        foreach ($categoryType->getCategories() as $category) {
+            if ($importantOnly && !$category->getImportant()) {
+                continue;
+            }
 
             $data[$category->getHandle()] = [
                 'name' => $category->getName(),
+                'handle' => $category->getHandle(),
                 'link' => '#/' . $categoryTypeHandle . '/' . $category->getHandle(),
             ];
         }
+
         return $data;
     }
 }

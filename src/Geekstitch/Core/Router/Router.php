@@ -16,24 +16,30 @@ class Router
     {
         $config = Di::getInstance()->getConfig();
 
-        $count = 0;
-        $pathPattern = preg_replace('/[0-9]+/', ':id', $path, 1, $count);
-        $hasParams =
+        $params = [];
 
-        $routeConfig = $config->get('routes')->get($pathPattern);
-        if ($routeConfig instanceof NullConfig) {
+        $count = 0;
+        $matchingConfig = null;
+        foreach ($config->get('routes') as $pattern => $routeConfig) {
+            $regex = '#' . str_replace(':handle', '([a-z0-9-]+)', $pattern, $count) . '#';
+            $hasHandle = ($count !== 0);
+
+            if (preg_match($regex, $path, $matches)) {
+                $matchingConfig = $routeConfig;
+                if ($hasHandle) {
+                    $params[] = $matches[1];
+                }
+                break;
+            }
+        }
+
+        if ($matchingConfig === null) {
             return null;
         }
 
-        $id = null;
-        if ($count !== 0) {
-            $id = intval(preg_replace('/[^0-9]+/', '', $path));
-        }
+        $controller = $matchingConfig->getValue('controller', 'default');
+        $action = $matchingConfig->getValue('action', 'default');
 
-        return new Route(
-            $routeConfig->getValue('controller', 'default'),
-            $routeConfig->getValue('action', 'default'),
-            $params
-        );
+        return new Route($controller, $action, $params);
     }
 }

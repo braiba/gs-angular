@@ -1,21 +1,46 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Braiba
- * Date: 30/05/2016
- * Time: 22:16
- */
 
 namespace Geekstitch\Entity;
 
-class ShippingType extends AbstractEntity
+/**
+ * Class ShippingType
+ *
+ * @Entity
+ * @Table(name="shipping_type")
+ *
+ * @package Geekstitch\Entity
+ */
+class ShippingType
 {
     const ID_UK = 1;
 
+    /**
+     * @Id
+     * @Column(name="id", type="integer")
+     *
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @Column(name="name", type="string")
+     *
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @Column(name="handle", type="string")
+     *
+     * @var string
+     */
     protected $handle;
 
+    /**
+     * @Column(name="cost", type="float")
+     *
+     * @var float
+     */
     protected $cost;
 
     /**

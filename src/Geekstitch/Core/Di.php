@@ -2,12 +2,13 @@
 
 namespace Geekstitch\Core;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 use Geekstitch\Core\Config\ArrayConfig;
 use Geekstitch\Core\Config\Config;
 use Geekstitch\Core\Router\Router;
 use Geekstitch\Entity\Basket;
 use PDO;
-use Slim\PDO\Database;
 
 class Di
 {
@@ -88,9 +89,33 @@ class Di
 
             $dsn = 'mysql:host=' . $host . ';dbname=' . $schema;
 
-            $this->db = new Database($dsn, $username, $password);
+            $this->db = new PDO($dsn, $username, $password);
         }
         return $this->db;
+    }
+
+    protected $entityManager = null;
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        if ($this->entityManager === null) {
+            $dbConfig = $this->getConfig()->get('database');
+
+            $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src"), true);
+            $conn = [
+                'driver' => 'pdo_mysql',
+                'host' => $dbConfig->getValue('host', 'localhost'),
+                'user' => $dbConfig->getValue('username'),
+                'password' => $dbConfig->getValue('password'),
+                'dbname' => $dbConfig->getValue('schema'),
+            ];
+
+            $this->entityManager = EntityManager::create($conn, $config);
+        }
+        return $this->entityManager;
     }
 
     protected $router = null;

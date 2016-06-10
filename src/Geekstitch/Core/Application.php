@@ -20,7 +20,7 @@ class Application
 
         $controller = $this->getController($route->getController());
 
-        $view = $this->callAction($controller, $route->getAction(), $route->getId());
+        $view = $this->callAction($controller, $route->getAction(), $route->getParams());
 
         echo $view->render();
     }
@@ -43,14 +43,14 @@ class Application
     /**
      * @param Controller $controller
      * @param string $actionName
-     * @param int|null $id
+     * @param array $params
      *
      * @return View
      */
-    protected function callAction($controller, $actionName, $id = null)
+    protected function callAction($controller, $actionName, $params = [])
     {
         $methodName = Text::stubToCamelCase($actionName) . 'Action';
 
-        return $controller->{$methodName}($id);
+        return call_user_func_array([$controller, $methodName], $params);
     }
 }

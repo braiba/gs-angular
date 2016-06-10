@@ -47,29 +47,25 @@ angular
             })
             .when('/contact-us', {templateUrl: 'views/contact-us.html'})
             .when('/faq', {templateUrl: 'views/faq.html'})
-            .when('/category/:category', {
+            .when('/categories/:category', {
                 templateUrl: 'views/category.html',
                 controller: 'CategoryController'
             })
-            .when('/fandom', {templateUrl: 'views/fandom-list.html'})
-            .when('/fandom/:category', {
+            .when('/fandoms', {templateUrl: 'views/fandom-list.html'})
+            .when('/fandoms/:category', {
                 templateUrl: 'views/category.html',
                 controller: 'CategoryController'
             })
-            .when('/genre', {templateUrl: 'views/genre-list.html'})
+            .when('/genres', {templateUrl: 'views/genre-list.html'})
             .when('/genres/:category', {
                 templateUrl: 'views/category.html',
                 controller: 'CategoryController'
             })
-            .when('/pack/:pack', {
+            .when('/packs/:pack', {
                 templateUrl: 'views/pack.html',
                 controller: 'PackController'
             })
-            .when('/offer/:offer', {
-                templateUrl: 'views/offer.html',
-                controller: 'OfferController'
-            })
-            .when('/offer/:offer', {
+            .when('/offers/:offer', {
                 templateUrl: 'views/offer.html',
                 controller: 'OfferController'
             })
@@ -130,7 +126,7 @@ angular
         $scope.category = [];
         $scope.chunkedPacks = [];
 
-        $http.get('./ajax/category/handle:' + $routeParams.category)
+        $http.get('./ajax/categories/' + $routeParams.category)
             .then(function(res){
                 $scope.category = res.data;
                 $scope.chunkedPacks = GeekStitch.helpers.getChunkedArray($scope.category.packs, 5);
@@ -138,7 +134,7 @@ angular
     }]).controller('PackController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
         $scope.pack = [];
 
-        $http.get('./ajax/pack?pack=' + $routeParams.pack)
+        $http.get('./ajax/packs/' + $routeParams.pack)
             .then(function(res){
                 $scope.pack = res.data;
             });

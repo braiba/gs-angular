@@ -2,17 +2,77 @@
 
 namespace Geekstitch\Entity;
 
-class Category extends AbstractEntity
+/**
+ * Class Category
+ *
+ * @Entity
+ * @Table(name="categories")
+ *
+ * @package Geekstitch\Entity
+ */
+class Category
 {
-    protected $categoryTypeId;
+    /**
+     * @Id
+     * @Column(name="category_ID", type="integer")
+     * @GeneratedValue
+     *
+     * @var int
+     */
+    protected $id;
 
+    /**
+     * @ManyToOne(targetEntity="Geekstitch\Entity\CategoryType")
+     * @JoinColumn(name="category_type_ID", referencedColumnName="category_type_ID")
+     *
+     * @var CategoryType
+     */
+    protected $categoryType;
+
+    /**
+     * @Column(name="name", type="string")
+     *
+     * @var string
+     */
     protected $name;
 
-    protected $urlChunk;
+    /**
+     * @Column(name="url_chunk", type="string")
+     *
+     * @var string
+     */
+    protected $handle;
 
+    /**
+     * @Column(name="important", type="boolean")
+     *
+     * @var boolean
+     */
     protected $important;
 
-    protected $samplePatternId;
+    /**
+     * @ManyToOne(targetEntity="Geekstitch\Entity\Product")
+     * @JoinColumn(name="sample_pattern_ID", referencedColumnName="pattern_ID")
+     *
+     * @var Product
+     */
+    protected $sampleProduct;
+
+    /**
+     * @ManyToMany(targetEntity="Geekstitch\Entity\Product", inversedBy="products")
+     * @JoinTable(
+     *     name="category_membership",
+     *     joinColumns={
+     *         @JoinColumn(name="category_ID", referencedColumnName="category_ID")
+     *     },
+     *     inverseJoinColumns={
+     *         @JoinColumn(name="pattern_ID", referencedColumnName="pattern_ID")
+     *     }
+     * )
+     *
+     * @var Product
+     */
+    protected $products;
 
     public function getTableName()
     {
@@ -20,11 +80,11 @@ class Category extends AbstractEntity
     }
 
     /**
-     * @return int
+     * @return CategoryType
      */
-    public function getCategoryTypeId()
+    public function getCategoryType()
     {
-        return $this->categoryTypeId;
+        return $this->categoryType;
     }
 
     /**
@@ -40,7 +100,7 @@ class Category extends AbstractEntity
      */
     public function getHandle()
     {
-        return $this->urlChunk;
+        return $this->handle;
     }
 
     /**
@@ -48,14 +108,22 @@ class Category extends AbstractEntity
      */
     public function getImportant()
     {
-        return (boolean) $this->important;
+        return $this->important;
     }
 
     /**
-     * @return int
+     * @return Product
      */
-    public function getSamplePatternId()
+    public function getSampleProduct()
     {
-        return $this->samplePatternId;
+        return $this->sampleProduct;
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

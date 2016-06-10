@@ -1,10 +1,37 @@
 <?php
 
 namespace Geekstitch\Entity;
+use Geekstitch\Core\Di;
 
+/**
+ * Class Basket
+ *
+ * @Entity
+ * @Table(name="carts")
+ *
+ * @package Geekstitch\Entity
+ */
 class Basket
 {
     /**
+     * @Id
+     * @GeneratedValue
+     * @Column(name="cart_ID", type="integer")
+     *
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @Column(name="session_ID", type="integer")
+     *
+     * @var int
+     */
+    protected $sessionId;
+
+    /**
+     * @OneToMany(targetEntity="Geekstitch\Entity\BasketItem", mappedBy="basket", cascade={"persist"})
+     *
      * @var BasketItem[]
      */
     protected $items = array();
@@ -14,6 +41,9 @@ class Basket
     protected $itemTotal = 0.00;
 
     /**
+     * @ManyToOne(targetEntity="Geekstitch\Entity\ShippingType")
+     * @JoinColumn(name="shipping_type_ID", referencedColumnName="id")
+     *
      * @var ShippingType
      */
     protected $shippingType;
@@ -23,12 +53,18 @@ class Basket
      */
     public static function getForCurrentUser()
     {
-        $basket = new Basket();
+        $em = Di::getInstance()->getEntityManager();
 
-        // TODO: load basket from DB
-        $product = new Product(1);
-        $basket->addProduct($product, 2);
-        $basket->setShippingType(new ShippingType(ShippingType::ID_UK));
+        $sessionId = session_id();
+        // DEBUG
+        $sessionId = 'debug';
+
+        $basket = $em->getRepository('Geekstitch\\Entity\\Basket')->findOneBy(['sessionId' => $sessionId]);
+        if ($basket === null) {
+            $basket = new Basket();
+
+            $basket->setSessionId($sessionId);
+        }
 
         return $basket;
     }
@@ -38,7 +74,7 @@ class Basket
      */
     public function getItems()
     {
-        return array_values($this->items);
+        return $this->items;
     }
 
     /**
@@ -51,7 +87,13 @@ class Basket
         if (isset($this->items[$productId])) {
             $this->items[$productId]->add($quantity);
         } else {
-            $this->items[$productId] = new BasketItem($product, $quantity);
+            $basketItem = new BasketItem();
+
+            $basketItem->setBasket($this);
+            $basketItem->setProduct($product);
+            $basketItem->setQuantity($quantity);
+
+            $this->items[$productId] = $basketItem;
         }
 
         $this->itemQuantity += $quantity;
@@ -72,6 +114,22 @@ class Basket
     public function setShippingType($shippingType)
     {
         $this->shippingType = $shippingType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
+    }
+
+    /**
+     * @param string $sessionId
+     */
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
     }
 
     /**

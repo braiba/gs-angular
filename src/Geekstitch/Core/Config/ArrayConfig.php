@@ -59,7 +59,7 @@ class ArrayConfig implements Config
     public function current()
     {
         $key = $this->key();
-        if ($key === null || !array_key_exists($this->data, $key)) {
+        if ($key === null || !array_key_exists($key, $this->data)) {
             return null;
         }
 

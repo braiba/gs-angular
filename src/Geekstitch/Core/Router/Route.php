@@ -8,13 +8,13 @@ class Route
 
     protected $action;
 
-    protected $id;
+    protected $params;
 
-    public function __construct($controller, $action, $id = null)
+    public function __construct($controller, $action, $params = [])
     {
         $this->controller = $controller;
         $this->action = $action;
-        $this->id = $id;
+        $this->params = $params;
     }
 
     /**
@@ -34,10 +34,10 @@ class Route
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getId()
+    public function getParams()
     {
-        return $this->id;
+        return $this->params;
     }
 }

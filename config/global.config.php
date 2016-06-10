@@ -12,7 +12,7 @@ return array(
             'controller' => 'ajax',
             'action' => 'cart-info',
         ),
-        'ajax/categories/:id' => array(
+        'ajax/categories/:handle' => array(
             'controller' => 'ajax',
             'action' => 'category',
         ),
@@ -24,11 +24,11 @@ return array(
             'controller' => 'ajax',
             'action' => 'fandoms',
         ),
-        'ajax/offers/:id' => array(
+        'ajax/offers/:handle' => array(
             'controller' => 'ajax',
             'action' => 'offer',
         ),
-        'ajax/packs/:id' => array(
+        'ajax/packs/:handle' => array(
             'controller' => 'ajax',
             'action' => 'pack',
         ),
