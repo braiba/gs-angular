@@ -53,9 +53,9 @@
                             type="radio"
                             id="shipping_type_{{ handle }}"
                             name="shipping_type"
-                            ng-model="cart.shipping"
                             ng-value="handle"
-                            ng-checked="handle == cart.shipping"
+                            ng-checked="cart.shipping.handle == handle"
+                            ng-click="selectShippingType(this.handle)"
                         >
 
                         {{ shippingType.name }} ({{ shippingType.cost|currency:'&pound;' }})

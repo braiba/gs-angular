@@ -1,0 +1,58 @@
+[01-Jun-2016 23:40:27 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php:33
+Stack trace:
+#0 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php(33): PDO->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#', Array)
+#1 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Di.php(91): Slim\PDO\Database->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#')
+#2 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(28): Geekstitch\Core\Di->getDb()
+#3 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(15): Geekstitch\Entity\AbstractEntity->init(1)
+#4 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\Basket.php(29): Geekstitch\Entity\AbstractEntity->__construct(1)
+#5 C:\Users\Braiba\Documents\Gi in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php on line 33
+[01-Jun-2016 23:40:30 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php:33
+Stack trace:
+#0 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php(33): PDO->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#', Array)
+#1 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Di.php(91): Slim\PDO\Database->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#')
+#2 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(28): Geekstitch\Core\Di->getDb()
+#3 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(15): Geekstitch\Entity\AbstractEntity->init(1)
+#4 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\Basket.php(29): Geekstitch\Entity\AbstractEntity->__construct(1)
+#5 C:\Users\Braiba\Documents\Gi in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php on line 33
+[01-Jun-2016 23:42:59 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php:33
+Stack trace:
+#0 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php(33): PDO->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#', Array)
+#1 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Di.php(91): Slim\PDO\Database->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#')
+#2 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(28): Geekstitch\Core\Di->getDb()
+#3 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(15): Geekstitch\Entity\AbstractEntity->init(1)
+#4 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\Basket.php(29): Geekstitch\Entity\AbstractEntity->__construct(1)
+#5 C:\Users\Braiba\Documents\Gi in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php on line 33
+[02-Jun-2016 00:43:41 Europe/London] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php:33
+Stack trace:
+#0 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php(33): PDO->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#', Array)
+#1 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Di.php(91): Slim\PDO\Database->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#')
+#2 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(28): Geekstitch\Core\Di->getDb()
+#3 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(15): Geekstitch\Entity\AbstractEntity->init(1)
+#4 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\Basket.php(29): Geekstitch\Entity\AbstractEntity->__construct(1)
+#5 C:\Users\Braiba\Documents\Gi in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php on line 33
+[02-Jun-2016 00:45:00 Europe/London] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php:33
+Stack trace:
+#0 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php(33): PDO->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#', Array)
+#1 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Di.php(91): Slim\PDO\Database->__construct('mysql:host=loca...', 'root', 'r1ch4Rd#')
+#2 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(28): Geekstitch\Core\Di->getDb()
+#3 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php(15): Geekstitch\Entity\AbstractEntity->init(1)
+#4 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\Basket.php(29): Geekstitch\Entity\AbstractEntity->__construct(1)
+#5 C:\Users\Braiba\Documents\Gi in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\vendor\slim\pdo\src\PDO\Database.php on line 33
+[02-Jun-2016 00:53:03 Europe/London] PHP Fatal error:  Class 'Geekstitch\Controllers\Category' not found in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Controllers\AjaxController.php on line 49
+[02-Jun-2016 01:02:50 Europe/London] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Entity\AbstractEntity.php on line 40
+[03-Jun-2016 00:04:23 Europe/London] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"' at line 5' in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Controllers\AjaxController.php:78
+Stack trace:
+#0 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Controllers\AjaxController.php(78): PDO->query('SELECT *\r\nFROM ...')
+#1 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Application.php(54): Geekstitch\Controllers\AjaxController->genresAction(NULL)
+#2 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Application.php(23): Geekstitch\Core\Application->callAction(Object(Geekstitch\Controllers\AjaxController), 'genres', NULL)
+#3 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\public\index.php(9): Geekstitch\Core\Application->handle('ajax/genres')
+#4 {main}
+  thrown in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Controllers\AjaxController.php on line 78
+[03-Jun-2016 00:04:30 Europe/London] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"' at line 5' in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Controllers\AjaxController.php:78
+Stack trace:
+#0 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Controllers\AjaxController.php(78): PDO->query('SELECT *\r\nFROM ...')
+#1 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Application.php(54): Geekstitch\Controllers\AjaxController->genresAction(NULL)
+#2 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Core\Application.php(23): Geekstitch\Core\Application->callAction(Object(Geekstitch\Controllers\AjaxController), 'genres', NULL)
+#3 C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\public\index.php(9): Geekstitch\Core\Application->handle('ajax/genres')
+#4 {main}
+  thrown in C:\Users\Braiba\Documents\Git Repos\braiba\gs-angular\src\Geekstitch\Controllers\AjaxController.php on line 78

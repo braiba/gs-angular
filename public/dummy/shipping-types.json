@@ -1,13 +1,13 @@
 {
-  "uk": {
+  "UK": {
     "name": "Standard Royal Mail Shipping (UK Only)",
     "cost": 1.50
   },
-  "eu": {
+  "EU": {
     "name": "European Shipping",
     "cost": 3.00
   },
-  "row": {
+  "ROW": {
     "name": "Rest of World Shipping",
     "cost": 4.50
   }
