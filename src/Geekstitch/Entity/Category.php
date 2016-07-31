@@ -126,4 +126,12 @@ class Category
     {
         return $this->products;
     }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return '#/' . $this->getCategoryType()->getHandle() . '/' . $this->getHandle();
+    }
 }

@@ -7,6 +7,22 @@ return array(
         'password' => '',
         'schema' => '',
     ),
+    'images' => [
+        'sizes' => [
+            'browse_thumbnail' => [
+                'width' => 75,
+                'height' => 75,
+            ],
+            'cart_thumbnail' => [
+                'width' => 100,
+                'height' => 100,
+            ],
+            'main_page' => [
+                'width' => 400,
+                'height' => 400,
+            ],
+        ],
+    ],
     'routes' => array(
         'ajax/cart-info' => array(
             'controller' => 'ajax',

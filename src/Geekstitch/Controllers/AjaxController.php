@@ -6,6 +6,7 @@ use Geekstitch\Core\Di;
 use Geekstitch\Core\View\JsonView;
 use Geekstitch\Entity\Category;
 use Geekstitch\Entity\CategoryType;
+use Geekstitch\Entity\Offer;
 use Geekstitch\Entity\Product;
 use Geekstitch\Entity\ShippingType;
 
@@ -27,7 +28,7 @@ class AjaxController
                 'product' => array(
                     'handle' => $handle,
                     'name' => $product->getName(),
-                    'link' => '#/pack/' . $handle,
+                    'link' => $product->getUrl(),
                     'price' => $product->getPrice(),
                 ),
                 'quantity' => $item->getQuantity()
@@ -65,7 +66,7 @@ class AjaxController
         foreach ($category->getProducts() as $product) {
             $packData[] = [
                 'name' => $product->getName(),
-                'link' => '#/packs/' . $product->getHandle(),
+                'link' => $product->getUrl(),
                 'images' => [], //TODO:
             ];
         }
@@ -75,7 +76,7 @@ class AjaxController
 
         $data = [
             'name' => $category->getName(),
-            'link' => '#/' . $category->getCategoryType()->getHandle() . '/' . $category->getHandle(),
+            'link' => $category->getUrl(),
             'offers' => $offerData,
             'packs' => $packData,
         ];
@@ -97,17 +98,32 @@ class AjaxController
         return new JsonView($data);
     }
 
-    public function offerAction($id)
+    public function offerAction($handle)
     {
-        $data = array();
+        $em = Di::getInstance()->getEntityManager();
 
-        // TODO: get offer from DB
+        /** @var Offer $offer */
+        $offer = $em->getRepository('Geekstitch\\Entity\\Offer')->findOneBy(['handle' => $handle]);
+        if ($offer === null) {
+            return new JsonView(['error' => 'Pack not found'], 404);
+        }
+
+        $data = [
+            'name' => $offer->getName(),
+            'handle' => $offer->getName(),
+            'short_description' => $offer->getShortDescription(),
+            'description' => $offer->getDescription(),
+            'price' => $offer->getPrice(),
+            'link' => $offer->getUrl(),
+        ];
 
         return new JsonView($data);
     }
 
     public function packAction($handle)
     {
+        $imageSize = (isset($_GET['imageSize']) ? $_GET['imageSize'] : null);
+
         $em = Di::getInstance()->getEntityManager();
 
         /** @var Product $product */
@@ -121,16 +137,21 @@ class AjaxController
             $categoriesData[] = [
                 'name' => $category->getName(),
                 'handle' => $category->getHandle(),
-                'link' => '#/' . $category->getCategoryType()->getHandle() . '/' . $category->getHandle(),
+                'link' => $category->getUrl(),
             ];
         }
 
         $data = [
             'name' => $product->getName(),
             'price' => $product->getPrice(),
-            'link' => '#/packs/' . $product->getHandle(),
+            'link' => $product->getUrl(),
             'categories' => $categoriesData,
         ];
+
+        if ($imageSize !== null) {
+            $image = Di::getInstance()->getImageProcessor()->resize($product->getImage(), $imageSize);
+            $data['image'] = $image->getUrl();
+        }
 
         return new JsonView($data);
     }
@@ -170,19 +191,19 @@ class AjaxController
             return new JsonView(['error' => 'Category type not found'], 404);
         }
 
-        $categoryTypeHandle = $categoryType->getHandle();
-
         $data = [];
         foreach ($categoryType->getCategories() as $category) {
             if ($importantOnly && !$category->getImportant()) {
                 continue;
             }
 
-            $data[$category->getHandle()] = [
+            $categoryData = [
                 'name' => $category->getName(),
                 'handle' => $category->getHandle(),
-                'link' => '#/' . $categoryTypeHandle . '/' . $category->getHandle(),
+                'link' => $category->getUrl(),
             ];
+
+            $data[$category->getHandle()] = $categoryData;
         }
 
         return $data;

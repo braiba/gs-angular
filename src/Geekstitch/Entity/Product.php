@@ -61,7 +61,7 @@ class Product
     /**
      * @ManyToMany(targetEntity="Geekstitch\Entity\Category", mappedBy="products")
      *
-     * @var Category
+     * @var Category[]
      */
     protected $categories;
 
@@ -74,11 +74,11 @@ class Product
     }
 
     /**
-     * @return string
+     * @param int $id
      */
-    public function getHandle()
+    public function setId($id)
     {
-        return $this->handle;
+        $this->id = $id;
     }
 
     /**
@@ -90,6 +90,30 @@ class Product
     }
 
     /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHandle()
+    {
+        return $this->handle;
+    }
+
+    /**
+     * @param string $handle
+     */
+    public function setHandle($handle)
+    {
+        $this->handle = $handle;
+    }
+
+    /**
      * @return float
      */
     public function getPrice()
@@ -98,10 +122,66 @@ class Product
     }
 
     /**
+     * @param float $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @param DateTime $timestamp
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->timestamp = $timestamp;
+    }
+
+    /**
+     * @return Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param Image $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
      * @return Category[]
      */
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * @param Category[] $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return '#/packs/' . $this->getHandle();
     }
 }
