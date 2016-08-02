@@ -60,6 +60,7 @@ class Product
 
     /**
      * @ManyToMany(targetEntity="Geekstitch\Entity\Category", mappedBy="products")
+     * @OrderBy({"name"="ASC"})
      *
      * @var Category[]
      */

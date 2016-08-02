@@ -42,6 +42,7 @@ class CategoryType
 
     /**
      * @OneToMany(targetEntity="Geekstitch\Entity\Category", mappedBy="categoryType")
+     * @OrderBy({"name"="ASC"})
      *
      * @var string
      */

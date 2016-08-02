@@ -31,6 +31,7 @@ class Basket
 
     /**
      * @OneToMany(targetEntity="Geekstitch\Entity\BasketItem", mappedBy="basket", cascade={"persist"})
+     * @OrderBy({"id"="ASC"})
      *
      * @var BasketItem[]
      */

@@ -69,6 +69,7 @@ class Category
      *         @JoinColumn(name="pattern_ID", referencedColumnName="pattern_ID")
      *     }
      * )
+     * @OrderBy({"name"="ASC"})
      *
      * @var Product
      */
