@@ -1,0 +1,15 @@
+<table class="grid_table">
+    <tbody>
+    <tr ng-repeat="categoryRow in vm.data.chunkedCategories">
+        <td ng-repeat="category in categoryRow" width="33.3%">
+            <a ng-attr-class="category_link {{ category.handle }}" ng-href="{{ category.link }}">
+                <span class="icon"></span>
+
+                <span ng-bind-html="category.name"></span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p class="all_link">&laquo; <a href="#/fandoms">view all {{ vm.data.categoryType.name }}</a> &raquo;</p>

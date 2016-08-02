@@ -8,45 +8,13 @@
     </div>
 
     <div id="head_nav">
-        <div class="content" ng-controller="CategoryPanelController" gs-type="genres">
-            <table class="grid_table">
-                <tbody>
-                <tr ng-repeat="itemRows in chunkedItems">
-                    <td ng-repeat="(handle, item) in itemRows" width="33.3%">
-                        <a ng-attr-class="category_link {{ handle }}" ng-href="{{ item.link }}">
-                            <span class="icon"></span>
-
-                            <span ng-bind-html="item.name"></span>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <p class="all_link">&laquo; <a href="#/genre">view all genres</a> &raquo;</p>
-        </div>
+        <gs-category-type-panel category-type="genres"></gs-category-type-panel>
     </div>
 
     <div id="splash"></div>
 
     <div id="tail_nav">
-        <div class="content" ng-controller="CategoryPanelController" gs-type="fandoms">
-            <table class="grid_table">
-                <tbody>
-                <tr ng-repeat="itemRows in chunkedItems">
-                    <td ng-repeat="(handle, item) in itemRows" width="33.3%">
-                        <a ng-attr-class="category_link {{ handle }}" ng-href="{{ item.link }}">
-                            <span class="icon"></span>
-
-                            <span ng-bind-html="item.name"></span>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <p class="all_link">&laquo; <a href="#/fandom">view all fandoms</a> &raquo;</p>
-        </div>
+        <gs-category-type-panel category-type="fandoms"></gs-category-type-panel>
     </div>
 
     <br />

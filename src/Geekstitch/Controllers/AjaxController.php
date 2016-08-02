@@ -86,14 +86,18 @@ class AjaxController
 
     public function genresAction()
     {
-        $data = $this->getCategoryData(CategoryType::ID_GENRE);
+        $importantOnly = (isset($_GET['important']) ? true : false);
+
+        $data = $this->getCategoryTypeData(CategoryType::ID_GENRE, $importantOnly);
 
         return new JsonView($data);
     }
 
     public function fandomsAction()
     {
-        $data = $this->getCategoryData(CategoryType::ID_FANDOM);
+        $importantOnly = (isset($_GET['important']) ? true : false);
+
+        $data = $this->getCategoryTypeData(CategoryType::ID_FANDOM, $importantOnly);
 
         return new JsonView($data);
     }
@@ -176,13 +180,12 @@ class AjaxController
 
     /**
      * @param int $categoryTypeId
+     * @param boolean $importantOnly
      *
      * @return array
      */
-    protected function getCategoryData($categoryTypeId)
+    protected function getCategoryTypeData($categoryTypeId, $importantOnly)
     {
-        $importantOnly = (isset($_GET['important']) ? true : false);
-
         $em = Di::getInstance()->getEntityManager();
 
         /** @var CategoryType $categoryType */
@@ -191,7 +194,11 @@ class AjaxController
             return new JsonView(['error' => 'Category type not found'], 404);
         }
 
-        $data = [];
+        $data = [
+            'name' => $categoryType->getName(),
+            'handle' => $categoryType->getHandle(),
+            'categories' => [],
+        ];
         foreach ($categoryType->getCategories() as $category) {
             if ($importantOnly && !$category->getImportant()) {
                 continue;
@@ -203,7 +210,7 @@ class AjaxController
                 'link' => $category->getUrl(),
             ];
 
-            $data[$category->getHandle()] = $categoryData;
+            $data['categories'][] = $categoryData;
         }
 
         return $data;
