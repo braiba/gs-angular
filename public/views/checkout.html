@@ -47,7 +47,7 @@
     <tfoot>
         <tr>
             <td colspan="5" style="text-align: right">
-                <p ng-repeat="(handle, shippingType) in shippingTypes">
+                <p ng-repeat="(handle, shippingType) in vm.shippingTypes">
                     <label ng-for="shipping_type_{{ handle }}">
                         <input
                             type="radio"
@@ -55,7 +55,7 @@
                             name="shipping_type"
                             ng-value="handle"
                             ng-checked="cart.shipping.handle == handle"
-                            ng-click="selectShippingType(this.handle)"
+                            ng-click="vm.selectShippingType(this.handle)"
                         >
 
                         {{ shippingType.name }} ({{ shippingType.cost|currency:'&pound;' }})

@@ -5,18 +5,14 @@
         .module('geekstitch')
         .controller('OfferController', OfferController);
 
-    OfferController.$inject = ['$http', '$routeParams', 'Chunker'];
+    OfferController.$inject = ['offer', 'Chunker'];
 
-    function OfferController($http, $routeParams, Chunker) {
+    function OfferController(offer, Chunker) {
         var vm = this;
 
-        vm.offer = [];
-        vm.chunkedPacks = [];
-
-        $http.get('./ajax/offer?offer=' + $routeParams.offer)
-            .then(function(res){
-                vm.offer = res.data;
-                vm.chunkedPacks = Chunker.getChunkedArray(vm.offer.packs, 5);
-            });
+        vm.data = {
+            offer: offer,
+            chunkedPacks: Chunker.getChunkedArray(offer.packs, 5)
+        };
     }
 })();

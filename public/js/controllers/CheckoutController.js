@@ -12,6 +12,7 @@
 
         vm.shippingTypes = [];
 
+        // Bound methods
         vm.selectShippingType = selectShippingType;
 
         activate();
@@ -21,12 +22,12 @@
                 .then(function (res) {
                     vm.shippingTypes = res.data;
 
-                    if (vm.shippingTypes[vm.cart.shipping]) {
+                    if (vm.shippingTypes[$rootScope.cart.shipping]) {
                         vm.cart.shippingCost = vm.shippingTypes[vm.cart.shipping].cost;
                     }
                 });
 
-            vm.$watch('cart.shipping', function (shipping) {
+            $rootScope.$watch('cart.shipping', function (shipping) {
                 if (vm.shippingTypes[shipping]) {
                     vm.cart.shippingCost = vm.shippingTypes[shipping].cost;
                 }

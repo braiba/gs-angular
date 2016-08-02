@@ -1,8 +1,8 @@
-<h1>Browse {{ vm.categoryType.name }}s</h1>
+<h1>Browse {{ vm.data.categoryType.name }}s</h1>
 
 <table class="browse grid_table">
     <tbody>
-        <tr ng-repeat="packRow in vm.chunkedPacks">
+        <tr ng-repeat="packRow in vm.data.chunkedPacks">
             <td ng-repeat="pack in packRow" width="20%">
                 <div class="pattern">
                     <div class="image" style="width:75px; height:75px;">

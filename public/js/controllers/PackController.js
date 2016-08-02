@@ -5,16 +5,13 @@
         .module('geekstitch')
         .controller('PackController', PackController);
 
-    PackController.$inject = ['$http', '$routeParams'];
+    PackController.$inject = ['pack'];
 
-    function PackController($http, $routeParams) {
+    function PackController(pack) {
         var vm = this;
 
-        vm.pack = [];
-
-        $http.get('./ajax/packs/' + $routeParams.pack)
-            .then(function(res){
-                vm.pack = res.data;
-            });
+        vm.data = {
+            pack: pack
+        };
     }
 })();

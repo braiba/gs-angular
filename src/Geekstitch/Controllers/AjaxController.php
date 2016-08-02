@@ -148,6 +148,7 @@ class AjaxController
         $data = [
             'name' => $product->getName(),
             'price' => $product->getPrice(),
+            'handle' => $product->getHandle(),
             'link' => $product->getUrl(),
             'categories' => $categoriesData,
         ];

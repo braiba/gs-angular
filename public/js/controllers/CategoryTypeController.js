@@ -5,18 +5,14 @@
         .module('geekstitch')
         .controller('CategoryTypeController', CategoryTypeController);
 
-    CategoryTypeController.$inject = ['$http', 'Chunker', 'categoryType'];
+    CategoryTypeController.$inject = ['categoryType', 'Chunker', ];
 
-    function CategoryTypeController($http, Chunker, categoryType) {
+    function CategoryTypeController(categoryType, Chunker) {
         var vm = this;
 
-        vm.categoryType = null;
-        vm.chunkedCategories = [];
-
-        $http.get('./ajax/' + categoryType)
-            .then(function(res){
-                vm.categoryType = res.data;
-                vm.chunkedCategories = Chunker.getChunkedArray(vm.categoryType.categories, 5);
-            });
+        vm.data = {
+            categoryType: categoryType,
+            chunkedCategories: Chunker.getChunkedArray(categoryType.categories, 5)
+        };
     }
 })();
