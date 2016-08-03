@@ -26,3 +26,7 @@ UPDATE `category_types` SET `url_chunk`='fandoms' WHERE `category_type_ID`='1';
 UPDATE `category_types` SET `url_chunk`='genres' WHERE `category_type_ID`='2';
 UPDATE `category_types` SET `url_chunk`='products' WHERE `category_type_ID`='3';
 UPDATE `category_types` SET `url_chunk`='limited-editions' WHERE `category_type_ID`='4';
+
+UPDATE patterns SET url_chunk = REPLACE(url_chunk, "(", "") WHERE url_chunk LIKE "%(%";
+UPDATE patterns SET url_chunk = REPLACE(url_chunk, ")", "") WHERE url_chunk LIKE "%)%";
+UPDATE patterns SET url_chunk = REPLACE(url_chunk, "'", "") WHERE url_chunk LIKE "%'%";
