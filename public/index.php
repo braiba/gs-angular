@@ -17,4 +17,4 @@ function errorHandler()
 
 register_shutdown_function('errorHandler');
 
-Di::getInstance()->getApplication()->handle($_GET['route']);
+Di::getInstance()->getApplication()->handle($_GET['route'], $_SERVER['REQUEST_METHOD']);

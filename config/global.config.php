@@ -29,33 +29,33 @@ return array(
         ],
     ],
     'routes' => array(
-        'ajax/cart-info' => array(
-            'controller' => 'ajax',
-            'action' => 'cart-info',
+        'GET cart' => array(
+            'controller' => 'cart',
+            'action' => 'get',
         ),
-        'ajax/categories/:handle' => array(
-            'controller' => 'ajax',
-            'action' => 'category',
+        'GET categories/:handle' => array(
+            'controller' => 'categories',
+            'action' => 'get',
         ),
-        'ajax/genres' => array(
-            'controller' => 'ajax',
-            'action' => 'genres',
+        'GET genres' => array(
+            'controller' => 'category-types',
+            'action' => 'genres-list',
         ),
-        'ajax/fandoms' => array(
-            'controller' => 'ajax',
-            'action' => 'fandoms',
+        'GET fandoms' => array(
+            'controller' => 'category-types',
+            'action' => 'fandoms-list',
         ),
-        'ajax/offers/:handle' => array(
-            'controller' => 'ajax',
-            'action' => 'offer',
+        'GET offers/:handle' => array(
+            'controller' => 'offers',
+            'action' => 'get',
         ),
-        'ajax/packs/:handle' => array(
-            'controller' => 'ajax',
-            'action' => 'pack',
+        'GET packs/:handle' => array(
+            'controller' => 'packs',
+            'action' => 'get',
         ),
-        'ajax/shipping-types' => array(
-            'controller' => 'ajax',
-            'action' => 'shipping-types',
+        'GET shipping-types' => array(
+            'controller' => 'shipping-types',
+            'action' => 'list',
         ),
     ),
 );

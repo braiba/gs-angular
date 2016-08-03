@@ -9,13 +9,15 @@ class Router
 {
     /**
      * @param string $path
+     * @param string $method
      *
      * @return Route
      */
-    public function getRoute($path)
+    public function getRoute($path, $method)
     {
         $config = Di::getInstance()->getConfig();
 
+        $routeString = strtoupper($method) . ' ' . $path;
         $params = [];
 
         $count = 0;
@@ -24,7 +26,7 @@ class Router
             $regex = '#' . str_replace(':handle', '([a-z0-9-]+)', $pattern, $count) . '#';
             $hasHandle = ($count !== 0);
 
-            if (preg_match($regex, $path, $matches)) {
+            if (preg_match($regex, $routeString, $matches)) {
                 $matchingConfig = $routeConfig;
                 if ($hasHandle) {
                     $params[] = $matches[1];

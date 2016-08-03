@@ -21,7 +21,7 @@
         activate();
 
         function activate() {
-            $http.get('./ajax/shipping-types')
+            $http.get('./shipping-types')
                 .then(function (res) {
                     vm.data.shippingTypes = res.data;
 

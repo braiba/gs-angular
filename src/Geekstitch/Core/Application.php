@@ -8,11 +8,11 @@ use Geekstitch\Utils\TextUtils;
 
 class Application
 {
-    public function handle($route)
+    public function handle($route, $method)
     {
         $di = Di::getInstance();
 
-        $route = $di->getRouter()->getRoute($route);
+        $route = $di->getRouter()->getRoute($route, $method);
         if ($route === null) {
             header('HTTP/1.0 404 Not Found');
             return;

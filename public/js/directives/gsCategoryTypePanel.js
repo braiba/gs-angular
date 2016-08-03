@@ -28,7 +28,7 @@
             chunkedCategories: null
         };
 
-        $http.get('./ajax/' + vm.categoryType, {params: {important: true}})
+        $http.get('./' + vm.categoryType, {params: {important: true}})
             .then(function(res){
                 vm.data.categoryType = res.data;
                 vm.data.chunkedCategories = Chunker.getChunkedArray(vm.data.categoryType.categories, 3);
