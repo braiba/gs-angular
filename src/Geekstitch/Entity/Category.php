@@ -1,6 +1,9 @@
 <?php
 
 namespace Geekstitch\Entity;
+use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityRepository;
+use Geekstitch\Core\Di;
 
 /**
  * Class Category
@@ -75,9 +78,42 @@ class Category
      */
     protected $products;
 
-    public function getTableName()
+    /**
+     * @var Connection
+     */
+    protected static $connection = null;
+
+    /**
+     * @var EntityRepository
+     */
+    protected static $productRepo = null;
+
+    /**
+     * @return EntityRepository
+     */
+    protected static function getProductRepo()
     {
-        return 'categories';
+        if (self::$productRepo === null) {
+            $entityManager = Di::getInstance()->getEntityManager();
+            self::$connection = $entityManager->getConnection();
+            self::$productRepo = $entityManager->getRepository(Product::class);
+        }
+
+        return self::$productRepo;
+    }
+
+    /**
+     * @return Connection
+     */
+    protected static function getConnection()
+    {
+        if (self::$connection === null) {
+            $entityManager = Di::getInstance()->getEntityManager();
+            self::$connection = $entityManager->getConnection();
+            self::$productRepo = $entityManager->getRepository(Product::class);
+        }
+
+        return self::$connection;
     }
 
     /**
@@ -134,5 +170,54 @@ class Category
     public function getUrl()
     {
         return '#/' . $this->getCategoryType()->getHandle() . '/' . $this->getHandle();
+    }
+
+    /**
+     * @return Product
+     */
+    public function getRandomProduct()
+    {
+        $connection = self::getConnection();
+
+        $sql = <<<'SQL'
+SELECT
+pattern_ID
+FROM category_membership
+WHERE category_ID = :category_id
+ORDER BY RAND()
+LIMIT 1
+SQL;
+        $params = [
+            'category_id' => $this->id,
+        ];
+        $result = $connection->executeQuery($sql, $params);
+        $row = $result->fetch();
+        if (!$row) {
+            return null;
+        }
+
+        return self::getProductRepo()->find($row['pattern_ID']);
+    }
+
+    /**
+     *
+     * @param string|null $imageSize
+     *
+     * @return array
+     */
+    public function getAjaxData($imageSize = null)
+    {
+        $data =  [
+            'name' => $this->getName(),
+            'handle' => $this->getHandle(),
+            'link' => $this->getUrl(),
+        ];
+
+        if ($imageSize !== null) {
+            $product = $this->getRandomProduct();
+            $data['image'] = $product->getThumbnail($imageSize)->getAjaxData();
+        }
+
+        return $data;
     }
 }

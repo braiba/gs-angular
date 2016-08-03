@@ -17,43 +17,37 @@ class AjaxController
      */
     public function cartInfoAction()
     {
+        $imageSize = (isset($_GET['image-size']) ? $_GET['image-size'] : null);
+
         $basket = Di::getInstance()->getBasket();
 
         $itemData = array();
         foreach ($basket->getItems() as $item) {
             $product = $item->getProduct();
-            $handle = $product->getHandle();
 
-            $itemData[] = array(
-                'product' => array(
-                    'handle' => $handle,
-                    'name' => $product->getName(),
-                    'link' => $product->getUrl(),
-                    'price' => $product->getPrice(),
-                ),
+            $itemData[] = [
+                'product' => $product->getAjaxData($imageSize),
                 'quantity' => $item->getQuantity()
-            );
+            ];
         }
 
         $shippingType = $basket->getShippingType();
 
-        $data = array(
+        $data = [
             'items' => $itemData,
             'itemTotal' => $basket->getItemTotal(),
-            'shipping' => [
-                'handle' => $shippingType->getHandle(),
-                'name' => $shippingType->getName(),
-                'cost' => $shippingType->getCost(),
-            ],
+            'shipping' => $shippingType->getAjaxData(),
             'count' => $basket->getItemQuantity(),
             'totalCost' => $basket->getTotal(),
-        );
+        ];
 
         return new JsonView($data);
     }
 
     public function categoryAction($handle)
     {
+        $imageSize = (isset($_GET['image-size']) ? $_GET['image-size'] : null);
+
         $em = Di::getInstance()->getEntityManager();
 
         /** @var Category $category */
@@ -64,11 +58,7 @@ class AjaxController
 
         $packData = [];
         foreach ($category->getProducts() as $product) {
-            $packData[] = [
-                'name' => $product->getName(),
-                'link' => $product->getUrl(),
-                'images' => [], //TODO:
-            ];
+            $packData[] = $product->getAjaxData($imageSize);
         }
 
         $offerData = [];
@@ -86,24 +76,27 @@ class AjaxController
 
     public function genresAction()
     {
+        $imageSize = (isset($_GET['image-size']) ? $_GET['image-size'] : null);
         $importantOnly = (isset($_GET['important']) ? true : false);
 
-        $data = $this->getCategoryTypeData(CategoryType::ID_GENRE, $importantOnly);
+        $data = $this->getCategoryTypeData(CategoryType::ID_GENRE, $imageSize, $importantOnly);
 
         return new JsonView($data);
     }
 
     public function fandomsAction()
     {
+        $imageSize = (isset($_GET['image-size']) ? $_GET['image-size'] : null);
         $importantOnly = (isset($_GET['important']) ? true : false);
 
-        $data = $this->getCategoryTypeData(CategoryType::ID_FANDOM, $importantOnly);
+        $data = $this->getCategoryTypeData(CategoryType::ID_FANDOM, $imageSize, $importantOnly);
 
         return new JsonView($data);
     }
 
     public function offerAction($handle)
     {
+        $imageSize = (isset($_GET['image-size']) ? $_GET['image-size'] : null);
         $em = Di::getInstance()->getEntityManager();
 
         /** @var Offer $offer */
@@ -126,7 +119,7 @@ class AjaxController
 
     public function packAction($handle)
     {
-        $imageSize = (isset($_GET['imageSize']) ? $_GET['imageSize'] : null);
+        $imageSize = (isset($_GET['image-size']) ? $_GET['image-size'] : null);
 
         $em = Di::getInstance()->getEntityManager();
 
@@ -138,25 +131,12 @@ class AjaxController
 
         $categoriesData = [];
         foreach ($product->getCategories() as $category) {
-            $categoriesData[] = [
-                'name' => $category->getName(),
-                'handle' => $category->getHandle(),
-                'link' => $category->getUrl(),
-            ];
+            $categoriesData[] = $category->getAjaxData();
         }
 
-        $data = [
-            'name' => $product->getName(),
-            'price' => $product->getPrice(),
-            'handle' => $product->getHandle(),
-            'link' => $product->getUrl(),
-            'categories' => $categoriesData,
-        ];
+        $data = $product->getAjaxData($imageSize);
 
-        if ($imageSize !== null) {
-            $image = Di::getInstance()->getImageProcessor()->resize($product->getImage(), $imageSize);
-            $data['image'] = $image->getUrl();
-        }
+        $data['categories'] = $categoriesData;
 
         return new JsonView($data);
     }
@@ -170,10 +150,7 @@ class AjaxController
 
         $data = [];
         foreach ($shippingTypes as $shippingType) {
-            $data[$shippingType->getHandle()] = [
-                'name' => $shippingType->getName(),
-                'cost' => $shippingType->getCost(),
-            ];
+            $data[$shippingType->getHandle()] = $shippingType->getAjaxData();
         }
 
         return new JsonView($data);
@@ -181,11 +158,12 @@ class AjaxController
 
     /**
      * @param int $categoryTypeId
+     * @param string $imageSize
      * @param boolean $importantOnly
      *
      * @return array
      */
-    protected function getCategoryTypeData($categoryTypeId, $importantOnly)
+    protected function getCategoryTypeData($categoryTypeId, $imageSize, $importantOnly)
     {
         $em = Di::getInstance()->getEntityManager();
 
@@ -205,13 +183,7 @@ class AjaxController
                 continue;
             }
 
-            $categoryData = [
-                'name' => $category->getName(),
-                'handle' => $category->getHandle(),
-                'link' => $category->getUrl(),
-            ];
-
-            $data['categories'][] = $categoryData;
+            $data['categories'][] = $category->getAjaxData($imageSize);
         }
 
         return $data;

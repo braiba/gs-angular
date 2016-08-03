@@ -3,6 +3,7 @@
 namespace Geekstitch\Entity;
 
 use DateTime;
+use Geekstitch\Core\Di;
 
 /**
  * Class Image
@@ -17,6 +18,7 @@ class Image
     /**
      * @Id
      * @Column(name="image_ID", type="integer")
+     * @GeneratedValue(strategy="IDENTITY")
      *
      * @var int
      */
@@ -174,5 +176,26 @@ class Image
     public function setTimestamp($timestamp)
     {
         $this->timestamp = $timestamp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return Di::getInstance()->getConfig()->get('images')->getValue('path') . $this->getPath();
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getAjaxData()
+    {
+        return [
+            'width' => $this->getWidth(),
+            'height' => $this->getHeight(),
+            'url' => $this->getUrl(),
+        ];
     }
 }

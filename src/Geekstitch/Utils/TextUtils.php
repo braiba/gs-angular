@@ -2,7 +2,7 @@
 
 namespace Geekstitch\Utils;
 
-class Text
+class TextUtils
 {
     private function __construct() {}
 

@@ -8,6 +8,11 @@ return array(
         'schema' => '',
     ),
     'images' => [
+        'imageMagick' => [
+            'dir' => 'C:\Program Files\ImageMagick\6.8.0-Q16',
+        ],
+        'dir' => ROOT_DIR . 'public/img/',
+        'path' => 'img/',
         'sizes' => [
             'browse_thumbnail' => [
                 'width' => 75,
@@ -17,7 +22,7 @@ return array(
                 'width' => 100,
                 'height' => 100,
             ],
-            'main_page' => [
+            'pack_page_main' => [
                 'width' => 400,
                 'height' => 400,
             ],

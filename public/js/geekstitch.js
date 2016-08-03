@@ -96,7 +96,7 @@
             "total": 0
         };
 
-        $http.get('./ajax/cart-info')
+        $http.get('./ajax/cart-info?image-size=cart_thumbnail')
             .then(function(res){
                 $rootScope.cart = res.data;
             });
@@ -127,7 +127,7 @@
     resolveCategory.$inject = ['$http', '$route'];
 
     function resolveCategory($http, $route) {
-        return $http.get('./ajax/categories/' + $route.current.params.category)
+        return $http.get('./ajax/categories/' + $route.current.params.category + '?image-size=browse_thumbnail')
             .then(function(res){
                 return res.data;
             });
@@ -136,7 +136,7 @@
     resolveCategoryTypeFandoms.$inject = ['$http'];
 
     function resolveCategoryTypeFandoms($http) {
-        return $http.get('./ajax/fandoms')
+        return $http.get('./ajax/fandoms?image-size=browse_thumbnail')
             .then(function(res){
                 return res.data;
             });
@@ -145,7 +145,7 @@
     resolveCategoryTypeGenres.$inject = ['$http'];
 
     function resolveCategoryTypeGenres($http) {
-        return $http.get('./ajax/genres')
+        return $http.get('./ajax/genres?image-size=browse_thumbnail')
             .then(function(res){
                 return res.data;
             });
@@ -154,7 +154,7 @@
     resolveOffer.$inject = ['$http', '$route'];
 
     function resolveOffer($http, $route) {
-        return $http.get('./ajax/offers/' + $route.current.params.offer)
+        return $http.get('./ajax/offers/' + $route.current.params.offer + '?image-size=offer_thumbnail')
             .then(function(res){
                 return res.data;
             });
@@ -163,7 +163,7 @@
     resolvePack.$inject = ['$http', '$route'];
 
     function resolvePack($http, $route) {
-        return $http.get('./ajax/packs/' + $route.current.params.pack)
+        return $http.get('./ajax/packs/' + $route.current.params.pack + '?image-size=pack_page_main')
             .then(function(res){
                 return res.data;
             });

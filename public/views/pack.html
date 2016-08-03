@@ -4,22 +4,22 @@
     <div class="categories" ng-hide="vm.data.pack.categories.length == 0">
         <span class="label">Categories:</span>
 
-        <a ng-repeat="category in vm.data.pack.categories"
-            class="category_link"
-            href="{{ category.link }}"
-        >
-            {{ category.name }}
-        </a>
+        <span ng-repeat="category in vm.data.pack.categories">
+            <a
+                class="category_link"
+                href="{{ category.link }}"
+            >{{ category.name }}</a>{{ (!$last ? ', ' : '') }}
+        </span>
     </div>
 
     <div class="image">
+        {{ image = vm.data.pack.image;"" }}
         <img
-            title="{{ vm.data.pack.name }}"
-            src="{{ vm.data.pack.images.size400 }}"
-            width="400"
-            height="400"
-            alt="{{ vm.data.pack.name }}"
-        >
+            width="{{ image.width }}"
+            height="{{ image.height}}"
+            ng-src="{{ image.url }}"
+            alt="{{ pack.name }}"
+        />
     </div>
 
     <div>

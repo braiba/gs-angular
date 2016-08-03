@@ -3,6 +3,8 @@
 namespace Geekstitch\Entity;
 
 use DateTime;
+use Geekstitch\Core\Di;
+use Geekstitch\ImageProcessors\ImageMagickThumbnailFactory;
 
 /**
  * Class Product
@@ -65,6 +67,28 @@ class Product
      * @var Category[]
      */
     protected $categories;
+
+    protected static $thumbnailFactories = [];
+
+    /**
+     *
+     * @param string $size
+     *
+     * @return ImageMagickThumbnailFactory
+     */
+    protected static function getThumbnailFactory($size)
+    {
+        if (!array_key_exists($size, self::$thumbnailFactories)) {
+            $sizeConfig = Di::getInstance()->getConfig()->get('images')->get('sizes')->get($size);
+
+            $width = $sizeConfig->getValue('width');
+            $height = $sizeConfig->getValue('height');
+
+            self::$thumbnailFactories[$size] = new ImageMagickThumbnailFactory($width, $height);
+        }
+
+        return self::$thumbnailFactories[$size];
+    }
 
     /**
      * @return int
@@ -184,5 +208,43 @@ class Product
     public function getUrl()
     {
         return '#/packs/' . $this->getHandle();
+    }
+
+    /**
+     *
+     * @param string $size
+     *
+     * @return Image
+     */
+    public function getThumbnail($size)
+    {
+        $thumbnailFactory = self::getThumbnailFactory($size);
+        if (!$thumbnailFactory) {
+            return null;
+        }
+
+        return $thumbnailFactory->getProcessedImage($this->getImage());
+    }
+
+    /**
+     *
+     * @param string|null $imageSize
+     *
+     * @return array
+     */
+    public function getAjaxData($imageSize = null)
+    {
+        $data = [
+            'handle' => $this->getHandle(),
+            'name' => $this->getName(),
+            'link' => $this->getUrl(),
+            'price' => $this->getPrice(),
+        ];
+
+        if ($imageSize !== null) {
+            $data['image'] = $this->getThumbnail($imageSize)->getAjaxData();
+        }
+
+        return $data;
     }
 }

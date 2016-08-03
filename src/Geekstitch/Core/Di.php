@@ -8,6 +8,7 @@ use Geekstitch\Core\Config\ArrayConfig;
 use Geekstitch\Core\Config\Config;
 use Geekstitch\Core\Router\Router;
 use Geekstitch\Entity\Basket;
+use Geekstitch\ImageMagickThumbnailFactorys\ImageMagickThumbnailFactory;
 use PDO;
 
 class Di

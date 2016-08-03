@@ -1,6 +1,10 @@
 <h1>Your Geek Stitch Shopping Cart</h1>
 
-<table class="cart" width="100%">
+<div ng-show="cart.items.length === 0">
+    Your cart is currently empty
+</div>
+
+<table class="cart" width="100%" ng-show="cart.items.length !== 0">
     <thead>
         <tr><th colspan="2">&nbsp;</th>
             <th>Price</th>
@@ -13,12 +17,12 @@
         <tr ng-repeat="cartItem in cart.items">
             <td>
                 <a ng-href="{{ cartItem.product.link }}">
+                    {{ image = cartItem.product.image;"" }}
                     <img
-                        width="75"
-                        height="75"
-                        ng-title="{{ cartItem.product.name }}"
-                        ng-src="{{ cartItem.product.images.size75 }}"
-                        ng-alt="{{ cartItem.product.name }}"
+                        width="{{ image.width }}"
+                        height="{{ image.height}}"
+                        ng-src="{{ image.url }}"
+                        alt="{{ cartItem.product.name }}"
                     />
                 </a>
             </td>
@@ -41,13 +45,21 @@
             <td>
                 {{ (cartItem.product.price * cartItem.quantity)|currency:"&pound;" }}
             </td>
-            <td><a href="./cart/remove/1up-mushroom"><img src="./img/icon/delete.gif" alt="del" title="del"></a></td>
+            <td>
+                <img
+                    width="24"
+                    height="24"
+                    src="./img/icon/delete.gif"
+                    alt="del"
+                    ng-click="vm.removeCartItem($index)"
+                />
+            </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
             <td colspan="5" style="text-align: right">
-                <p ng-repeat="(handle, shippingType) in vm.shippingTypes">
+                <p ng-repeat="(handle, shippingType) in vm.data.shippingTypes">
                     <label ng-for="shipping_type_{{ handle }}">
                         <input
                             type="radio"
@@ -72,7 +84,7 @@
     </tfoot>
 </table>
 
-<form method="post" action="./order/expresscheckout">
+<form method="post" action="./order/expresscheckout" ng-show="cart.items.length !== 0">
     <p style="text-align:center">
         <input
             type="image"

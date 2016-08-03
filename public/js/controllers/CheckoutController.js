@@ -10,9 +10,12 @@
     function CheckoutController($http, $rootScope) {
         var vm = this;
 
-        vm.shippingTypes = [];
+        vm.data = {
+            shippingTypes: {}
+        };
 
         // Bound methods
+        vm.removeCartItem = removeCartItem;
         vm.selectShippingType = selectShippingType;
 
         activate();
@@ -20,18 +23,22 @@
         function activate() {
             $http.get('./ajax/shipping-types')
                 .then(function (res) {
-                    vm.shippingTypes = res.data;
+                    vm.data.shippingTypes = res.data;
 
                     if (vm.shippingTypes[$rootScope.cart.shipping]) {
-                        vm.cart.shippingCost = vm.shippingTypes[vm.cart.shipping].cost;
+                        $rootScope.cart.shippingCost = vm.shippingTypes[vm.cart.shipping].cost;
                     }
                 });
 
             $rootScope.$watch('cart.shipping', function (shipping) {
                 if (vm.shippingTypes[shipping]) {
-                    vm.cart.shippingCost = vm.shippingTypes[shipping].cost;
+                    $rootScope.cart.shippingCost = vm.shippingTypes[shipping].cost;
                 }
             });
+        }
+
+        function removeCartItem(cartItemIndex) {
+            $rootScope.cart.items.splice(cartItemIndex, 1);
         }
 
         function selectShippingType(handle) {

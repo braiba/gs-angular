@@ -4,7 +4,7 @@ namespace Geekstitch\Core;
 
 use Geekstitch\Core\Controller\Controller;
 use Geekstitch\Core\View\View;
-use Geekstitch\Utils\Text;
+use Geekstitch\Utils\TextUtils;
 
 class Application
 {
@@ -32,7 +32,7 @@ class Application
      */
     protected function getController($name)
     {
-        $className = 'Geekstitch\\Controllers\\' . Text::stubToPascalCase($name) . 'Controller';
+        $className = 'Geekstitch\\Controllers\\' . TextUtils::stubToPascalCase($name) . 'Controller';
         if (!class_exists($className)) {
             return null;
         }
@@ -49,7 +49,7 @@ class Application
      */
     protected function callAction($controller, $actionName, $params = [])
     {
-        $methodName = Text::stubToCamelCase($actionName) . 'Action';
+        $methodName = TextUtils::stubToCamelCase($actionName) . 'Action';
 
         return call_user_func_array([$controller, $methodName], $params);
     }

@@ -1,6 +1,6 @@
 <h1>Browse {{ vm.category.name }} Patterns</h1>
 
-<div ng-if="category.offers.length !== 0">
+<div ng-if="vm.category.offers.length !== 0">
     <p>If you're interested in {{ vm.category.name }} patterns you may be interested in these offers:</p>
     <ul class="offers">
         <li ng-repeat="offer in vm.category.offers">
@@ -18,11 +18,11 @@
                 <div class="pattern">
                     <div class="image" style="width:75px; height:75px;">
                         <a href="{{ pack.link }}">
-                            {{ image = pack.images.size75;"" }}
+                            {{ image = pack.image;"" }}
                             <img
                                 width="{{ image.width }}"
                                 height="{{ image.height}}"
-                                src="{{ image.src }}"
+                                ng-src="{{ image.url }}"
                                 alt="{{ pack.name }}"
                             >
                         </a>

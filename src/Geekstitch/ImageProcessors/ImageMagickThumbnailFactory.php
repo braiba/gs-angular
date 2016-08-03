@@ -1,32 +1,88 @@
-<?php 
-	
+<?php
+
+namespace Geekstitch\ImageProcessors;
+use Geekstitch\Entity\Image;
+
 /**
  *
  * @author Thomas
  */
-class ImageMagickThumbnailFactory extends ImageMagickProcessingFactory {
-	
-	protected $max_width;
-	protected $max_height;
-	
-	public function __construct($max_width, $max_height) {
-		parent::__construct();
-		$this->max_width = $max_width;
-		$this->max_height = $max_height;
-	}
-		
-	public function generateProcessData() {
-		return $this->source->process_data.'{resize to: '.$this->max_width.'x'.$this->max_height.'}';
-	}
-	
-	public function generateOutputFilename() {
-		$info = pathinfo($this->source->filename);
-		return $info['dirname'].'/thumbnails/'.$info['filename'].'('.$this->max_width.'x'.$this->max_height.').'.$info['extension'];
-	}
-	
-	public function getCommand($input_filename) {
-		return 'convert "'.realpath($input_filename).'" -resize	'.$this->max_width.'x'.$this->max_height.' -';
-	}
+class ImageMagickThumbnailFactory extends ImageMagickProcessingFactory
+{
 
+    protected $maxWidth;
+    protected $maxHeight;
+
+    /**
+     *
+     * @param int $maxWidth
+     * @param int $maxHeight
+     */
+    public function __construct($maxWidth, $maxHeight)
+    {
+        $this->maxWidth = $maxWidth;
+        $this->maxHeight = $maxHeight;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxWidth()
+    {
+        return $this->maxWidth;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxHeight()
+    {
+        return $this->maxHeight;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function generateTargetProcessData(Image $source)
+    {
+        $processData = $source->getProcessData();
+        $maxWidth = $this->getMaxWidth();
+        $maxHeight = $this->getMaxHeight();
+
+        if ($maxHeight < $source->getHeight() || $maxWidth < $source->getWidth()) {
+            $processData .= '{resize to: ' . $maxWidth . 'x' . $maxHeight . '}';
+        }
+
+        return $processData;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function generateOutputFilename(Image $source)
+    {
+        $imagesDir = $this->getImagesDir();
+        $maxWidth = $this->getMaxWidth();
+        $maxHeight = $this->getMaxHeight();
+        $info = pathinfo($source->getPath());
+
+        $dir = $info['dirname'];
+        $basename = $info['filename'];
+        $ext = $info['extension'];
+
+        return $dir . '/thumbnails/' . $basename .  '_' . $maxWidth . 'x' . $maxHeight . '.' . $ext;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommand($inputFilename)
+    {
+        $inputFilename = realpath($inputFilename);
+
+        $maxWidth = $this->getMaxWidth();
+        $maxHeight = $this->getMaxHeight();
+
+        return 'convert "' . $inputFilename . '" -resize ' . $maxWidth . 'x' . $maxHeight . ' -';
+    }
 }
-?>

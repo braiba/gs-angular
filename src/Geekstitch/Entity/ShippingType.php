@@ -73,4 +73,17 @@ class ShippingType
     {
         return (float) $this->cost;
     }
+
+    /**
+     *
+     * @return array
+     */
+    public function getAjaxData()
+    {
+        return [
+            'handle' => $this->getHandle(),
+            'name' => $this->getName(),
+            'cost' => $this->getCost(),
+        ];
+    }
 }

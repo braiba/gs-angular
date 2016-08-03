@@ -2,23 +2,23 @@
 
 <table class="browse grid_table">
     <tbody>
-        <tr ng-repeat="packRow in vm.data.chunkedPacks">
-            <td ng-repeat="pack in packRow" width="20%">
+        <tr ng-repeat="categoryRow in vm.data.chunkedCategories">
+            <td ng-repeat="category in categoryRow" width="20%">
                 <div class="pattern">
                     <div class="image" style="width:75px; height:75px;">
-                        <a href="{{ pack.link }}">
-                            {{ image = pack.images.size75;"" }}
+                        <a href="{{ category.link }}">
+                            {{ image = category.image;"" }}
                             <img
                                 width="{{ image.width }}"
                                 height="{{ image.height}}"
-                                src="{{ image.src }}"
-                                alt="{{ pack.name }}"
+                                ng-src="{{ image.url }}"
+                                alt="{{ category.name }}"
                             >
                         </a>
                     </div>
 
                     <p>
-                        <a href="{{ pack.link }}">{{ pack.name }}</a>
+                        <a href="{{ category.link }}">{{ category.name }}</a>
                     </p>
                 </div>
             </td>
