@@ -1,7 +1,11 @@
+# Development Artifacts
 .idea
 *.log
 
-# Framework specific
+# Environment-specific config files
+config/
+
+# Build Artifacts
 vendor/
 composer.lock
-app/Config.php
+

@@ -68,6 +68,10 @@ class Di
             /** @var array $data */
             $data = require ROOT_DIR . 'config/global.config.php';
 
+            if (file_exists(ROOT_DIR . 'config/local.config.php')) {
+                $data = array_merge($data, require ROOT_DIR . 'config/local.config.php');
+            }
+
             $this->config = new ArrayConfig($data);
         }
         return $this->config;
