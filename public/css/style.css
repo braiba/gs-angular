@@ -21,7 +21,8 @@ h1 {
 	text-align: center;
 	padding: 15px 0 20px 0;
 	color: black;
-	font: 42px "Lucida Handwriting", "Lucida Calligraphy", verdana, arial, sans-serif;
+	font-family: 'Waiting for the Sunrise', cursive;
+	font-size: 42px;
 	line-height:1em;
 }
 body {
