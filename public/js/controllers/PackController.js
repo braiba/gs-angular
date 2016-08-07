@@ -32,7 +32,7 @@
         }
 
         function addToCartAction() {
-            Cart.addPack(vm.data.pack.handle);
+            Cart.addPack(vm.data.pack);
         }
     }
 })();

@@ -1,10 +1,10 @@
 <h1>Your Geek Stitch Shopping Cart</h1>
 
-<div ng-show="cart.items.length === 0">
+<div ng-show="vm.itemCount === 0">
     Your cart is currently empty
 </div>
 
-<table class="cart" width="100%" ng-show="vm.items.length !== 0">
+<table class="cart" width="100%" ng-show="vm.itemCount !== 0">
     <thead>
         <tr><th colspan="2">&nbsp;</th>
             <th>Price</th>
@@ -85,7 +85,7 @@
     </tfoot>
 </table>
 
-<form method="post" action="./order/expresscheckout" ng-show="cart.items.length !== 0">
+<form method="post" action="./order/expresscheckout" ng-show="vm.itemCount !== 0">
     <p style="text-align:center">
         <input
             type="image"

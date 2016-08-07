@@ -16,6 +16,7 @@
 
         vm.items = [];
         vm.shippingType = null;
+        vm.itemCount = 0;
         vm.totalCost = 0.00;
 
         // Bound methods
@@ -39,11 +40,12 @@
         function refreshCartData() {
             vm.items = Cart.getItems();
             vm.shippingType = Cart.getShippingType();
+            vm.itemCount = Cart.getItemCount();
             vm.totalCost = Cart.getTotalCost();
         }
 
-        function removeCartItem(packId) {
-            Cart.removeItem(packId);
+        function removeCartItem(packHandle) {
+            Cart.removePack(packHandle);
         }
 
         function setPackQuantity(packId, quantity) {
