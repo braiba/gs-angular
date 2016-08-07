@@ -23,15 +23,29 @@
     </div>
 
     <div>
-        <p><b>Cost:</b> {{ vm.data.pack.price|currency:'&pound;' }}</p>
+        <p style="text-align: right">
+            <span class="cost-block" style="vertical-align: top">
+                {{ vm.data.pack.price|currency:'&pound;' }}
+            </span>
 
-        <p>
-            If you have any questions about this pack, please check out <a href="#/faq">the FAQ page</a>
-            or feel free to <a href="#/contact-us">contact us</a>.
+            <span class="cartButtonWrapper">
+                <button
+                    ng-click="vm.addToCart(vm.data.pack)"
+                    class="btn btn-large"
+                    href="./cart/add/{{ vm.data.pack.handle }}"
+                >
+                    Add to Cart
+                </button>
+
+                <span class="inCartMessage" ng-show="vm.inCartQuantity !== 0">
+                    {{ vm.inCartQuantity }} in cart
+                </span>
+            </span>
         </p>
 
-        <p style="font-size:large; text-align:center; color: #888;">
-            [ <a href="./cart/add/{{ vm.data.pack.handle }}">Click Here to Add to Cart</a> ]
+        <p style="text-align: center">
+            If you have any questions about this pack, please check out <a href="#/faq">the FAQ page</a>
+            or feel free to <a href="#/contact-us">contact us</a>.
         </p>
     </div>
 </div>

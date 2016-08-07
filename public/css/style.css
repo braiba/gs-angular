@@ -1,110 +1,110 @@
 html, body, h1, h2, h3, h4 {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 h1 img {
-	display: block;
+    display: block;
 }
 img {
-	border: 0;
+    border: 0;
 }
 a {
-	color: #8F6A2B;
-	font-weight: bold;
-	text-decoration: none;
+    color: #8F6A2B;
+    font-weight: bold;
+    text-decoration: none;
 }
 a:hover {
-	color: #C4861C;
-	text-decoration: underline;
+    color: #C4861C;
+    text-decoration: underline;
 }
 h1 {
-	text-align: center;
-	padding: 15px 0 20px 0;
-	color: black;
-	font-family: 'Waiting for the Sunrise', cursive;
-	font-size: 42px;
-	line-height:1em;
+    text-align: center;
+    padding: 15px 0 20px 0;
+    color: black;
+    font-family: 'Waiting for the Sunrise', cursive;
+    font-size: 42px;
+    line-height:1em;
 }
 body {
-	background: url(../img/bg.jpg) repeat-x;
-	text-align: center;
-	font: 12px arial, sans-serif;
-	color: #5D5D5D;
+    background: url(../img/bg.jpg) repeat-x;
+    text-align: center;
+    font: 12px arial, sans-serif;
+    color: #5D5D5D;
 }
 #wrapper {
-	text-align: left;
-	margin: auto;
-	width: 800px;
-	position: relative;
+    text-align: left;
+    margin: auto;
+    width: 800px;
+    position: relative;
 }
 
 #logo {
-	text-align: center;
-	padding-top: 15px;
-	color: white;
-	font: 32px "Lucida Handwriting", "Lucida Calligraphy", verdana, arial, sans-serif;
+    text-align: center;
+    padding-top: 15px;
+    color: white;
+    font: 32px "Lucida Handwriting", "Lucida Calligraphy", verdana, arial, sans-serif;
 }
 #sidebar{
-	position: absolute;
-	background: url(../img/sidebar_bg.png) repeat-y;
-	padding: 4px 6px 4px 16px;
-	width: 240px;
-	top: 0;
-	left: 0;
-	z-index: 1;
+    position: absolute;
+    background: url(../img/sidebar_bg.png) repeat-y;
+    padding: 4px 6px 4px 16px;
+    width: 240px;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 #header{
-	background: url(../img/sidebar_head.png) no-repeat;
-	position: relative;
-	top: -6px;
-	left: -16px;
-	width: 260px;
-	height: 280px;
-	margin-bottom:-80px;
-	z-index: 1;
+    background: url(../img/sidebar_head.png) no-repeat;
+    position: relative;
+    top: -6px;
+    left: -16px;
+    width: 260px;
+    height: 280px;
+    margin-bottom:-80px;
+    z-index: 1;
 }
 #sidebar hr {
-	position: relative;
-	z-index:3;
-	width: 80%;
-	margin-bottom: 18px;
+    position: relative;
+    z-index:3;
+    width: 80%;
+    margin-bottom: 18px;
 }
 #sidebar h2 {
-	color: #FFF;	
-	text-align:center;
+    color: #FFF;    
+    text-align:center;
 }
 #sidebar .content {
-	vertical-align:top;
+    vertical-align:top;
 }
 #sidebar .category_link{
-	display:inline-block;
-	text-align:center;
-	width: 64px;
-	height: 100px;
-	margin: 4px 6px;
+    display:inline-block;
+    text-align:center;
+    width: 64px;
+    height: 100px;
+    margin: 4px 6px;
 }
 #sidebar .category_link{
-	display:inline-block;
-	text-align:center;
-	width: 64px;
-	height: 72px;
-	margin: 4px 6px;
+    display:inline-block;
+    text-align:center;
+    width: 64px;
+    height: 72px;
+    margin: 4px 6px;
 }
 #sidebar .category_link .icon {
-	background: url(../img/icon/categories.png) no-repeat;
-	display:block;
-	margin: auto;
-	width: 48px;
-	height: 48px;
+    background: url(../img/icon/categories.png) no-repeat;
+    display:block;
+    margin: auto;
+    width: 48px;
+    height: 48px;
 }
 #sidebar .all_link {
-	text-align: center;	
-	margin:0;
-	color: #FFF;
-	font-weight:bold;
+    text-align: center;    
+    margin:0;
+    color: #FFF;
+    font-weight:bold;
 }
 #sidebar .all_link a{
-	font-weight:bold;
+    font-weight:bold;
 }
 
 #sidebar .category_link .icon {background-position: 0 0; margin-bottom: 2px;}
@@ -134,85 +134,85 @@ body {
 #sidebar .category_link.tv:hover .icon {background-position: -144px -192px;}
 
 #head_nav {
-	position: relative;
-	z-index: 2;
+    position: relative;
+    z-index: 2;
 }
 #splash {
-	background: url(../img/sidebar_splash.png) no-repeat;
-	position: relative;
-	left:-75px;
-	width: 383px;
-	height: 463px;
-	z-index: 1;
+    background: url(../img/sidebar_splash.png) no-repeat;
+    position: relative;
+    left:-75px;
+    width: 383px;
+    height: 463px;
+    z-index: 1;
 }
 #sidebar_foot {
-	background: top left url(../img/sidebar_bottom.png) no-repeat #FFF;
-	position:relative;
-	left:-16px;
-	bottom:-6px;
-	width: 260px;
-	height: 30px;
+    background: top left url(../img/sidebar_bottom.png) no-repeat #FFF;
+    position:relative;
+    left:-16px;
+    bottom:-6px;
+    width: 260px;
+    height: 30px;
 }
 #sidebar a {
-	font-weight: normal;
-	color: white;
+    font-weight: normal;
+    color: white;
 }
 
 #main {
-	position: absolute;
-	background: top right url(../img/main_background.png) no-repeat #FFF;
-	width: 550px;
-	min-height: 400px;
-	top: 0;
-	left: 259px;
-	overflow: hidden;
+    position: absolute;
+    background: top right url(../img/main_background.png) no-repeat #FFF;
+    width: 550px;
+    min-height: 400px;
+    top: 0;
+    left: 259px;
+    overflow: hidden;
 }
 .messages {
-	font-weight:bold;	
+    font-weight:bold;    
 }
 #main .cart_info {
-	padding: 60px 80px 8px 60px;
-	text-align:right;
+    padding: 60px 80px 8px 60px;
+    text-align:right;
 }
 #main .content {
-	padding: 0 80px 84px 60px;
+    padding: 0 80px 84px 60px;
 }
 #main h2 {
-	font-size: 18px;
-	font-weight: normal;
-	margin-top: 25px;
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 25px;
 }
 #main p {
-	margin: 0.5em 0;
+    margin: 0 0 1em 0;
 }
 #main ul {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 #main li {
-	margin: 1em 0;
-	list-style: none;
-	padding: 0 0 0 30px;
-	background: top left url(img/bullet_orange.gif) no-repeat;
+    margin: 1em 0;
+    list-style: none;
+    padding: 0 0 0 30px;
+    background: top left url(img/bullet_orange.gif) no-repeat;
 }
 #footer {
-	text-align: center;
-	clear: both;
-	padding-top: 15px;
+    text-align: center;
+    clear: both;
+    padding-top: 15px;
 }
 
 
 #main table.browse td {
-	text-align:center;
+    text-align:center;
 }
 #main table.browse p {
-	margin: 0 0 4px 0;
+    margin: 0 0 4px 0;
 }
 
 #main .fullview.pattern .image{
-	width:100%;
-	text-align:center;
-	margin: 8px;
+    width:100%;
+    text-align:center;
+    margin: 8px;
 }
 
 #main .blogpost h2 {
@@ -231,12 +231,63 @@ body {
 }
 
 .grid_table td {
-	vertical-align:top;
-	padding: 0;
+    vertical-align:top;
+    padding: 0;
 }
 
 .image {
-	display: flex;
-	align-items: center;
-	justify-content: center
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.btn {
+    background-color: #C00000;
+    color: #FFF;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+a.btn {
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #B10000;
+}
+
+.btn-large {
+    padding: 10px 28px;
+    font-size: 18pt;
+    font-weight: normal;
+}
+
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
+
+p {
+    clear: both;
+}
+
+.cost-block {
+    display: inline-block;
+    font-family: 'Waiting for the Sunrise', cursive;
+    font-size: 22pt;
+    font-weight: bold;
+    padding: 0 12px;
+}
+
+.cartButtonWrapper {
+    display: inline-block;
+}
+
+.inCartMessage {
+    display: block;
+    text-align: center;
+    padding: 0.8em;
 }

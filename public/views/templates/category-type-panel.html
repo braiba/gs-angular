@@ -1,4 +1,4 @@
-<table class="grid_table">
+<table class="grid_table" ng-if="vm.data.categoryType">
     <tbody>
     <tr ng-repeat="categoryRow in vm.data.chunkedCategories">
         <td ng-repeat="category in categoryRow" width="33.3%">
@@ -12,4 +12,13 @@
     </tbody>
 </table>
 
-<p class="all_link">&laquo; <a href="#/{{ vm.data.categoryType.handle }}">view all {{ vm.data.categoryType.name | lowercase }}s</a> &raquo;</p>
+<p
+    ng-if="vm.data.categoryType"
+    class="all_link"
+>
+    &laquo;
+    <a href="#/{{ vm.data.categoryType.handle }}">
+        view all {{ vm.data.categoryType.name | lowercase }}s
+    </a>
+    &raquo;
+</p>

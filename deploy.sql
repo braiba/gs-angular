@@ -30,3 +30,5 @@ UPDATE `category_types` SET `url_chunk`='limited-editions' WHERE `category_type_
 UPDATE patterns SET url_chunk = REPLACE(url_chunk, "(", "") WHERE url_chunk LIKE "%(%";
 UPDATE patterns SET url_chunk = REPLACE(url_chunk, ")", "") WHERE url_chunk LIKE "%)%";
 UPDATE patterns SET url_chunk = REPLACE(url_chunk, "'", "") WHERE url_chunk LIKE "%'%";
+
+UPDATE categories SET name = "Pokémon" WHERE url_chunk = "pokemon";
