@@ -35,10 +35,7 @@ class CartController
 
         $data = [
             'items' => $itemData,
-            'itemTotal' => $basket->getItemTotal(),
-            'shipping' => $shippingType->getAjaxData(),
-            'count' => $basket->getItemQuantity(),
-            'totalCost' => $basket->getTotal(),
+            'shippingType' => $shippingType->getHandle(),
         ];
 
         return new JsonView($data);

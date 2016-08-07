@@ -5,9 +5,9 @@
         .module('geekstitch')
         .controller('PackController', PackController);
 
-    PackController.$inject = ['$rootScope', 'pack'];
+    PackController.$inject = ['Cart', 'pack'];
 
-    function PackController($rootScope, pack) {
+    function PackController(Cart, pack) {
         var vm = this;
 
         vm.data = {
@@ -16,23 +16,23 @@
 
         vm.inCartQuantity = 0;
 
+        // Bound methods
+        vm.addToCartAction = addToCartAction;
+
         activate();
 
         function activate() {
-            onCartItemsUpdate($rootScope.cart.items);
+            onCartItemsUpdate();
 
-            $rootScope.$watch('cart.items', onCartItemsUpdate);
+            Cart.getEventScope().$on('cart:update', onCartItemsUpdate);
         }
 
         function onCartItemsUpdate(cartItems) {
-            cartItems.some(function(cartItem) {
-                if (cartItem.product.id === pack.id) {
-                    vm.inCartQuantity = cartItem.quantity;
-                    return true;
-                }
+            Cart.getPackCount(vm.data.pack.handle);
+        }
 
-                return false;
-            });
+        function addToCartAction() {
+            Cart.addPack(vm.data.pack.handle);
         }
     }
 })();

@@ -28,10 +28,14 @@
             chunkedCategories: null
         };
 
-        $http.get('./' + vm.categoryType, {params: {important: true}})
-            .then(function(res){
-                vm.data.categoryType = res.data;
-                vm.data.chunkedCategories = Chunker.getChunkedArray(vm.data.categoryType.categories, 3);
-            });
+        activate();
+
+        function activate() {
+            $http.get('./' + vm.categoryType, {params: {important: true}})
+                .then(function (res) {
+                    vm.data.categoryType = res.data;
+                    vm.data.chunkedCategories = Chunker.getChunkedArray(vm.data.categoryType.categories, 3);
+                });
+        }
     }
 })();

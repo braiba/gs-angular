@@ -8,8 +8,7 @@
 
     angular
         .module('geekstitch', dependencies)
-        .config(config)
-        .run(run);
+        .config(config);
 
     config.$inject = ['$routeProvider'];
 
@@ -80,48 +79,6 @@
                 }
             })
             .otherwise({templateUrl: 'views/not-found.html'});
-    }
-
-    run.$inject = ['$rootScope', '$http'];
-
-    function run($rootScope, $http) {
-        $rootScope.cart = {
-            "items": [],
-            "itemTotal": 0,
-            "shipping": {
-                "cost": 0
-            },
-            "shippingCost": 0,
-            "count": 0,
-            "total": 0
-        };
-
-        $http.get('./cart?image-size=cart_thumbnail')
-            .then(function(res){
-                $rootScope.cart = res.data;
-            });
-
-        $rootScope.$watch(
-            'cart.items',
-            function() {
-                var itemTotal = 0;
-                var itemCount = 0;
-                angular.forEach($rootScope.cart.items, function(item) {
-                    itemTotal += item.quantity * item.product.price;
-                    itemCount += item.quantity;
-                });
-                $rootScope.cart.count = itemCount;
-                $rootScope.cart.itemTotal = itemTotal;
-            },
-            true
-        );
-
-        $rootScope.$watchGroup(
-            ['cart.itemTotal', 'cart.shipping'],
-            function() {
-                $rootScope.cart.total = $rootScope.cart.itemTotal + $rootScope.cart.shipping.cost;
-            }
-        );
     }
 
     resolveCategory.$inject = ['$http', '$route'];

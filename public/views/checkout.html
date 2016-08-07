@@ -4,7 +4,7 @@
     Your cart is currently empty
 </div>
 
-<table class="cart" width="100%" ng-show="cart.items.length !== 0">
+<table class="cart" width="100%" ng-show="vm.items.length !== 0">
     <thead>
         <tr><th colspan="2">&nbsp;</th>
             <th>Price</th>
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="cartItem in cart.items">
+        <tr ng-repeat="cartItem in vm.items">
             <td>
                 <a ng-href="{{ cartItem.product.link }}">
                     {{ image = cartItem.product.image;"" }}
@@ -37,6 +37,7 @@
             <td>
                 <input
                     ng-model="cartItem.quantity"
+                    ng-change="vm.setPackQuantity(cartItem.product.handle, cartItem.quantity)"
                     type="number"
                     min="1"
                     style="width: 42px; text-align: center"
@@ -51,7 +52,7 @@
                     height="24"
                     src="./img/icon/delete.gif"
                     alt="del"
-                    ng-click="vm.removeCartItem($index)"
+                    ng-click="vm.removeCartItem(cartItem.product.handle)"
                 />
             </td>
         </tr>
@@ -66,8 +67,8 @@
                             id="shipping_type_{{ handle }}"
                             name="shipping_type"
                             ng-value="handle"
-                            ng-checked="cart.shipping.handle == handle"
-                            ng-click="vm.selectShippingType(this.handle)"
+                            ng-checked="vm.shippingType.handle == handle"
+                            ng-click="vm.selectShippingType(handle)"
                         >
 
                         {{ shippingType.name }} ({{ shippingType.cost|currency:'&pound;' }})
@@ -78,7 +79,7 @@
         </tr>
         <tr>
             <td colspan="4" style="text-align: right; padding: 12px; font-weight: bold">Total:</td>
-            <td>{{ cart.total|currency:'&pound;' }}</td>
+            <td>{{ vm.totalCost|currency:'&pound;' }}</td>
             <td>&nbsp;</td>
         </tr>
     </tfoot>
