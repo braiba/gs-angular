@@ -25,16 +25,18 @@
                 .then(function (res) {
                     vm.data.shippingTypes = res.data;
 
-                    if (vm.shippingTypes[$rootScope.cart.shipping]) {
-                        $rootScope.cart.shippingCost = vm.shippingTypes[vm.cart.shipping].cost;
+                    var shippingHandle = $rootScope.cart.shipping.handle;
+                    if (vm.data.shippingTypes[shippingHandle]) {
+                        $rootScope.cart.shippingCost = vm.data.shippingTypes[shippingHandle].cost;
                     }
-                });
 
-            $rootScope.$watch('cart.shipping', function (shipping) {
-                if (vm.shippingTypes[shipping]) {
-                    $rootScope.cart.shippingCost = vm.shippingTypes[shipping].cost;
-                }
-            });
+                    $rootScope.$watch('cart.shipping', function (shipping) {
+                        var shippingHandle = shipping.handle;
+                        if (vm.data.shippingTypes[shippingHandle]) {
+                            $rootScope.cart.shippingCost = vm.data.shippingTypes[shippingHandle].cost;
+                        }
+                    });
+                });
         }
 
         function removeCartItem(cartItemIndex) {
@@ -42,7 +44,7 @@
         }
 
         function selectShippingType(handle) {
-            $rootScope.cart.shipping = vm.shippingTypes[handle];
+            $rootScope.cart.shipping = vm.data.shippingTypes[handle];
         }
     }
 })();
