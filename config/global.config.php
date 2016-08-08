@@ -28,6 +28,16 @@ return array(
             ],
         ],
     ],
+    'paypal' => array(
+        'apiEndpoint' => 'https://api-3t.paypal.com/nvp',
+        'payPalRedirectUrl' => 'https://www.paypal.com/cgi-bin/webscr',
+        'successCallbackUrl' => '/pay-pal/success',
+        'failureCallbackUrl' => '/pay-pal/failure',
+        'username' => 'contactus_api1.geekstitch.co.uk',
+        'password' => 'AL2Y35UPE5YYESD8',
+        'signature' => 'ARJgxv7P5ty.F5oRDHterBK.w8tZArDf4D5YAQbDENfykkFMnrL2WeRJ',
+        'version' => 64,
+    ),
     'routes' => array(
         'GET cart' => array(
             'controller' => 'cart',

@@ -9,6 +9,7 @@ use Geekstitch\Core\Config\Config;
 use Geekstitch\Core\Router\Router;
 use Geekstitch\Entity\Basket;
 use Geekstitch\ImageMagickThumbnailFactorys\ImageMagickThumbnailFactory;
+use Geekstitch\Utils\PayPalClient;
 use PDO;
 
 class Di
@@ -134,5 +135,30 @@ class Di
             $this->router = new Router();
         }
         return $this->router;
+    }
+
+    protected $payPalClient = null;
+
+    /**
+     * @return PayPalClient
+     */
+    public function getPayPalClient()
+    {
+        if ($this->payPalClient === null) {
+            $payPalConfig = self::getConfig()->get('paypal');
+
+            $this->payPalClient = new PayPalClient(
+                $payPalConfig->getValue('apiEndpoint'),
+                $payPalConfig->getValue('version'),
+                $payPalConfig->getValue('username'),
+                $payPalConfig->getValue('password'),
+                $payPalConfig->getValue('signature'),
+                $payPalConfig->getValue('payPalRedirectUrl'),
+                $payPalConfig->getValue('successCallbackUrl'),
+                $payPalConfig->getValue('failureCallbackUrl')
+            );
+        }
+
+        return $this->payPalClient;
     }
 }
