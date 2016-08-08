@@ -11,6 +11,6 @@
         var vm = this;
 
         vm.category = category;
-        vm.chunkedPacks = Chunker.getChunkedArray(category.packs, 5);
+        vm.chunkedPacks = Chunker.getChunkedArray(category.packs, 4);
     }
 })();

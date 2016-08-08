@@ -44,7 +44,7 @@
         };
 
         function init() {
-            var cartDataPromise = $http.get('./cart?image-size=cart_thumbnail')
+            var cartDataPromise = $http.get('./cart')
                 .then(function(response) {
                     return response.data;
                 });

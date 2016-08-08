@@ -215,7 +215,7 @@ SQL;
 
         if ($imageSize !== null) {
             $product = $this->getRandomProduct();
-            $data['image'] = $product->getThumbnail($imageSize)->getAjaxData();
+            $data['image'] = ($product ? $product->getThumbnail($imageSize)->getAjaxData() : null);
         }
 
         return $data;

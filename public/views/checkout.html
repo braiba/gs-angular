@@ -14,17 +14,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="cartItem in vm.items">
+        <tr ng-repeat="cartItem in vm.items" ng-init="packHandle = cartItem.product.handle">
             <td>
-                <a ng-href="{{ cartItem.product.link }}">
+                <a ng-href="{{ cartItem.product.link }}" ng-if="vm.data.packImages[packHandle]">
                     {{ image = cartItem.product.image;"" }}
                     <img
-                        width="{{ image.width }}"
-                        height="{{ image.height}}"
-                        ng-src="{{ image.url }}"
+                        width="{{ vm.data.packImages[packHandle].width }}"
+                        height="{{ vm.data.packImages[packHandle].height}}"
+                        ng-src="{{ vm.data.packImages[packHandle].url }}"
                         alt="{{ cartItem.product.name }}"
                     />
                 </a>
+
+                <div ng-if="!vm.data.packImages[packHandle]" class="imagePlaceholder"></div>
             </td>
             <td>
                 <a ng-href="{{ cartItem.product.link }}">

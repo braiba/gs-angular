@@ -11,7 +11,8 @@
         var vm = this;
 
         vm.data = {
-            shippingTypes: {}
+            shippingTypes: {},
+            packImages: {}
         };
 
         vm.items = [];
@@ -42,6 +43,19 @@
             vm.shippingType = Cart.getShippingType();
             vm.itemCount = Cart.getItemCount();
             vm.totalCost = Cart.getTotalCost();
+
+            angular.forEach(vm.items, function(cartItem) {
+                var packHandle = cartItem.product.handle;
+
+                if (!vm.data.packImages.hasOwnProperty(packHandle)) {
+                    vm.data.packImages[packHandle] = null;
+
+                    $http.get('./packs/' + packHandle + '?image-size=cart_thumbnail')
+                        .then(function(res){
+                            vm.data.packImages[packHandle] = res.data.image;
+                        });
+                }
+            });
         }
 
         function removeCartItem(packHandle) {

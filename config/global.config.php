@@ -15,8 +15,8 @@ return array(
         'path' => 'img/',
         'sizes' => [
             'browse_thumbnail' => [
-                'width' => 75,
-                'height' => 75,
+                'width' => 100,
+                'height' => 100,
             ],
             'cart_thumbnail' => [
                 'width' => 100,

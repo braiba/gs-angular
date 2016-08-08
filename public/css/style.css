@@ -175,7 +175,7 @@ body {
     text-align:right;
 }
 #main .content {
-    padding: 0 80px 84px 60px;
+    padding: 0 55px 84px 35px;
 }
 #main h2 {
     font-size: 18px;
@@ -201,6 +201,9 @@ body {
     padding-top: 15px;
 }
 
+#main table.browse {
+    width: 100%;
+}
 
 #main table.browse td {
     text-align:center;
@@ -236,7 +239,7 @@ body {
 }
 
 .image {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center
 }
@@ -290,4 +293,12 @@ p {
     display: block;
     text-align: center;
     padding: 0.8em;
+}
+
+.cart .imagePlaceholder {
+    display: block;
+    width: 98px;
+    height: 98px;
+    background-color: #F8F8F8;
+    border: solid 1px #F0F0F0;
 }
