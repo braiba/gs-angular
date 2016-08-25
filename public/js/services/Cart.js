@@ -105,7 +105,16 @@
 
             calculateMetadata();
             vm.eventScope.$emit('cart:update');
-            // TODO: transmit
+
+            var patchRequest = {
+                items: [
+                    {
+                        product: pack.handle,
+                        quantity: vm.cart.items[pack.handle].quantity
+                    }
+                ]
+            };
+            $http.patch('./cart', patchRequest);
         }
 
         function removePack(packHandle) {
@@ -117,7 +126,16 @@
 
             calculateMetadata();
             vm.eventScope.$emit('cart:update');
-            // TODO: transmit
+
+            var patchRequest = {
+                items: [
+                    {
+                        product: packHandle,
+                        quantity: 0
+                    }
+                ]
+            };
+            $http.patch('./cart', patchRequest);
         }
 
         function setPackCount(packHandle, count) {
@@ -129,7 +147,16 @@
 
             calculateMetadata();
             vm.eventScope.$emit('cart:update');
-            // TODO: transmit
+
+            var patchRequest = {
+                items: [
+                    {
+                        product: packHandle,
+                        quantity: count
+                    }
+                ]
+            };
+            $http.patch('./cart', patchRequest);
         }
 
         function getPackCount(packHandle) {
@@ -174,6 +201,11 @@
             vm.totalCost = vm.totalItemCost + vm.shippingCost;
 
             vm.eventScope.$emit('cart:update');
+
+            var patchRequest = {
+                shippingType: shippingType
+            };
+            $http.patch('./cart', patchRequest);
         }
 
         function getShippingCost() {

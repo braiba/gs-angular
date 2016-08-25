@@ -43,6 +43,10 @@ return array(
             'controller' => 'cart',
             'action' => 'get',
         ),
+        'PATCH cart' => array(
+            'controller' => 'cart',
+            'action' => 'patch',
+        ),
         'GET categories/:handle' => array(
             'controller' => 'categories',
             'action' => 'get',

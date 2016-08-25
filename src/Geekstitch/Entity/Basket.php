@@ -37,10 +37,6 @@ class Basket
      */
     protected $items = array();
 
-    protected $itemQuantity = 0;
-
-    protected $itemTotal = 0.00;
-
     /**
      * @ManyToOne(targetEntity="Geekstitch\Entity\ShippingType")
      * @JoinColumn(name="shipping_type_ID", referencedColumnName="id")
@@ -48,6 +44,12 @@ class Basket
      * @var ShippingType
      */
     protected $shippingType;
+
+    protected $itemQuantity = 0;
+
+    protected $itemTotal = 0.00;
+
+    protected $productIdMap = null;
 
     /**
      * @return Basket
@@ -57,14 +59,16 @@ class Basket
         $em = Di::getInstance()->getEntityManager();
 
         $sessionId = session_id();
-        // DEBUG
-        $sessionId = 'debug';
 
         $basket = $em->getRepository('Geekstitch\\Entity\\Basket')->findOneBy(['sessionId' => $sessionId]);
         if ($basket === null) {
             $basket = new Basket();
 
             $basket->setSessionId($sessionId);
+
+            /** @var ShippingType $ukShippingType */
+            $ukShippingType = $em->find(ShippingType::class, ShippingType::ID_UK);
+            $basket->setShippingType($ukShippingType);
         }
 
         return $basket;
@@ -78,15 +82,32 @@ class Basket
         return $this->items;
     }
 
+    public function getProductIdMap()
+    {
+        if ($this->productIdMap === null) {
+            $this->productIdMap = [];
+
+            foreach ($this->items as $index => $item) {
+                $this->productIdMap[$item->getProduct()->getId()] = $index;
+            }
+        }
+
+        return $this->productIdMap;
+    }
+
     /**
      * @param Product $product
      * @param int $quantity
      */
-    public function addProduct($product, $quantity = 1)
+    public function setProductQuantity($product, $quantity = 1)
     {
         $productId = $product->getId();
-        if (isset($this->items[$productId])) {
-            $this->items[$productId]->add($quantity);
+
+        $productIdIndex = $this->getProductIdMap();
+        if (isset($productIdIndex[$productId])) {
+            $index = $productIdIndex[$productId];
+            $quantityDiff = $quantity - $this->items[$index]->getQuantity();
+            $this->items[$index]->setQuantity($quantity);
         } else {
             $basketItem = new BasketItem();
 
@@ -94,11 +115,13 @@ class Basket
             $basketItem->setProduct($product);
             $basketItem->setQuantity($quantity);
 
-            $this->items[$productId] = $basketItem;
+            $this->items[] = $basketItem;
+
+            $quantityDiff = $quantity;
         }
 
-        $this->itemQuantity += $quantity;
-        $this->itemTotal += $product->getPrice();
+        $this->itemQuantity += $quantityDiff;
+        $this->itemTotal += $quantityDiff * $product->getPrice();
     }
 
     /**
