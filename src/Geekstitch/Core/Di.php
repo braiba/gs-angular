@@ -117,6 +117,7 @@ class Di
                 'user' => $dbConfig->getValue('username'),
                 'password' => $dbConfig->getValue('password'),
                 'dbname' => $dbConfig->getValue('schema'),
+                'charset' => $dbConfig->getValue('charset', 'utf8'),
             ];
 
             $this->entityManager = EntityManager::create($conn, $config);
