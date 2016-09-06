@@ -223,7 +223,12 @@ class Product
             return null;
         }
 
-        return $thumbnailFactory->getProcessedImage($this->getImage());
+        $image = $this->getImage();
+        if ($image === null) {
+            return null;
+        }
+
+        return $thumbnailFactory->getProcessedImage($image);
     }
 
     /**
@@ -242,7 +247,10 @@ class Product
         ];
 
         if ($imageSize !== null) {
-            $data['image'] = $this->getThumbnail($imageSize)->getAjaxData();
+            $thumbnail = $this->getThumbnail($imageSize);
+            if ($thumbnail !== null) {
+                $data['image'] = $thumbnail->getAjaxData();
+            }
         }
 
         return $data;
