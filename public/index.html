@@ -33,7 +33,7 @@
             <div id="main">
                 <ng-include src="'views/partials/header.html'"></ng-include>
 
-                <div class="content">
+                <div gs-fade-during-resolve class="content fade">
                     <ng-view></ng-view>
                 </div>
 
@@ -43,6 +43,7 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-sanitize.js"></script>
 
@@ -53,6 +54,7 @@
         <script src="js/controllers/OfferController.js"></script>
         <script src="js/controllers/PackController.js"></script>
         <script src="js/directives/gsCategoryTypePanel.js"></script>
+        <script src="js/directives/gsFadeDuringResolve.js"></script>
         <script src="js/directives/gsHeaderCartInfo.js"></script>
         <script src="js/services/Cart.js"></script>
         <script src="js/services/Chunker.js"></script>

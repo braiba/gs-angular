@@ -302,3 +302,14 @@ p {
     background-color: #F8F8F8;
     border: solid 1px #F0F0F0;
 }
+
+.fade {
+    opacity: 1;
+    transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+}
+
+.fade.faded {
+    opacity: 0.25;
+}
