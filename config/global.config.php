@@ -9,7 +9,7 @@ return array(
     ),
     'images' => [
         'imageMagick' => [
-            'dir' => 'C:\Program Files\ImageMagick\6.8.0-Q16',
+            'dir' => '',
         ],
         'dir' => ROOT_DIR . 'public/img/',
         'path' => 'img/',
@@ -38,6 +38,11 @@ return array(
         'signature' => 'ARJgxv7P5ty.F5oRDHterBK.w8tZArDf4D5YAQbDENfykkFMnrL2WeRJ',
         'version' => 64,
     ),
+    'site' => [
+        'debug' => false,
+        'path' => '',
+        'baseUrl' => '',
+    ],
     'routes' => array(
         'GET cart' => array(
             'controller' => 'cart',
@@ -70,6 +75,18 @@ return array(
         'GET shipping-types' => array(
             'controller' => 'shipping-types',
             'action' => 'list',
+        ),
+        'POST checkout/payment' => array(
+            'controller' => 'pay-pal',
+            'action' => 'payment',
+        ),
+        'GET pay-pal/success' => array(
+            'controller' => 'pay-pal',
+            'action' => 'success',
+        ),
+        'GET pay-pal/failure' => array(
+            'controller' => 'pay-pal',
+            'action' => 'failure',
         ),
     ),
 );

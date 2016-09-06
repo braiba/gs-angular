@@ -2,6 +2,8 @@
 
 namespace Geekstitch\Entity;
 use Geekstitch\Core\Di;
+use Geekstitch\PayPal\PayPalPaymentRequest;
+use Geekstitch\PayPal\PhysicalPayPalPaymentRequestItem;
 
 /**
  * Class Basket
@@ -23,9 +25,9 @@ class Basket
     protected $id;
 
     /**
-     * @Column(name="session_ID", type="integer")
+     * @Column(name="session_ID", type="string")
      *
-     * @var int
+     * @var string
      */
     protected $sessionId;
 
@@ -45,6 +47,13 @@ class Basket
      */
     protected $shippingType;
 
+    /**
+     * @Column(name="paypal_token", type="string")
+     *
+     * @var string|null
+     */
+    protected $payPalToken = null;
+
     protected $itemQuantity = 0;
 
     protected $itemTotal = 0.00;
@@ -57,6 +66,8 @@ class Basket
     public static function getForCurrentUser()
     {
         $em = Di::getInstance()->getEntityManager();
+
+        session_start();
 
         $sessionId = session_id();
 
@@ -141,7 +152,7 @@ class Basket
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getSessionId()
     {
@@ -154,6 +165,22 @@ class Basket
     public function setSessionId($sessionId)
     {
         $this->sessionId = $sessionId;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPayPalToken()
+    {
+        return $this->payPalToken;
+    }
+
+    /**
+     * @param null|string $payPalToken
+     */
+    public function setPayPalToken($payPalToken)
+    {
+        $this->payPalToken = $payPalToken;
     }
 
     /**
@@ -178,5 +205,32 @@ class Basket
     public function getTotal()
     {
         return $this->itemTotal + $this->getShippingType()->getCost();
+    }
+
+    /**
+     *
+     * @return PayPalPaymentRequest
+     */
+    public function generatePayPalPaymentRequest()
+    {
+        $paymentRequest = new PayPalPaymentRequest();
+
+        foreach ($this->getItems() as $item) {
+            $product = $item->getProduct();
+            $paymentRequestItem = new PhysicalPayPalPaymentRequestItem(
+                '\'' . $product->getName() . '\' cross-stitch pack',
+                $product->getPrice(),
+                $item->getQuantity()
+            );
+
+            $paymentRequest->addPaymentRequestItem($paymentRequestItem);
+        }
+
+        $paymentRequest->invoiceNumber = $this->getSessionId();
+        $paymentRequest->description = 'Geek Stitch order';
+        $paymentRequest->shippingAmount = $this->getShippingType()->getCost();
+        $paymentRequest->currencyCode = 'GBP';
+
+        return $paymentRequest;
     }
 }

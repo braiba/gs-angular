@@ -8,8 +8,7 @@ use Geekstitch\Core\Config\ArrayConfig;
 use Geekstitch\Core\Config\Config;
 use Geekstitch\Core\Router\Router;
 use Geekstitch\Entity\Basket;
-use Geekstitch\ImageMagickThumbnailFactorys\ImageMagickThumbnailFactory;
-use Geekstitch\Utils\PayPalClient;
+use Geekstitch\Paypal\PayPalClient;
 use PDO;
 
 class Di
@@ -69,8 +68,9 @@ class Di
             /** @var array $data */
             $data = require ROOT_DIR . 'config/global.config.php';
 
-            if (file_exists(ROOT_DIR . 'config/local.config.php')) {
-                $data = array_merge($data, require ROOT_DIR . 'config/local.config.php');
+            $hostname = $_SERVER['HTTP_HOST'];
+            if (file_exists(ROOT_DIR . 'config/' . $hostname . '.config.php')) {
+                $data = array_replace_recursive($data, require ROOT_DIR . 'config/' . $hostname . '.config.php');
             }
 
             $this->config = new ArrayConfig($data);

@@ -1,6 +1,8 @@
 <?php
 
-namespace Geekstitch\Utils;
+namespace Geekstitch\PayPal;
+
+use Geekstitch\Core\Di;
 
 class PayPalClient
 {
@@ -151,49 +153,31 @@ class PayPalClient
 
         return $this->payPalRedirectUrl . '?' . $query;
     }
-    
+
     /**
-     * Makes a request to Express Checkout
-     * 
-     * @param string $paymentType
-     * @param string $desc
-     * @param string $currencyCodeType
-     * 
-     * @return boolean 
+     *
+     * @param PayPalOrder $order
+     *
+     * @return string
      */
-    public function expressCheckout($paymentType = 'sale', $desc = 'Geek Stitch Order', $currencyCodeType = 'GBP')
+    public function expressCheckout(PayPalOrder $order)
     {
-        $cart = Cart::getCurrentCart();
-        $itemAmount = $cart->getItemCost();
-        $shippingAmount = $cart->getShippingCost();
-        $invoice_id = $cart->cart_ID;        
-        
-        $attrs = array(
-            'PAYMENTREQUEST_0_AMT' => ($itemAmount + $shippingAmount),
-            'PAYMENTREQUEST_0_ITEMAMT' => $itemAmount,
-            'PAYMENTREQUEST_0_SHIPPINGAMT' => $shippingAmount,
-            'PAYMENTREQUEST_0_PAYMENTACTION' => $paymentType,
-            'RETURNURL' => HTMLUtils::absolute($this->successCallbackUrl),
-            'CANCELURL' => HTMLUtils::absolute($this->failureCallbackUrl),
-            'PAYMENTREQUEST_0_CURRENCYCODE' => $currencyCodeType,
-            'PAYMENTREQUEST_0_DESC' => $desc,
-            'PAYMENTREQUEST_0_INVNUM' => $invoice_id,
-        );
-        
-        foreach ($cart->CartItems as $i=>$cart_item){
-            $pattern = $cart_item->Pattern;
-            $attrs['L_PAYMENTREQUEST_0_NAME'.$i] = $pattern->name.' Cross Stitch Pack';
-            $attrs['L_PAYMENTREQUEST_0_AMT'.$i] = $pattern->cost;
-            $attrs['L_PAYMENTREQUEST_0_QTY'.$i] = $cart_item->quantity;
-        }
+        $config = Di::getInstance()->getConfig();
 
-        $resArray = self::hashCall('SetExpressCheckout', $attrs);
+        $baseUrl = 'http://' . $_SERVER['HTTP_HOST'] . $config->get('site')->getValue('baseUrl');
 
-        $ack = strtoupper($resArray['ACK']);
+        $request = $order->toArray();
+
+        $request['RETURNURL'] = $baseUrl . $this->successCallbackUrl;
+        $request['CANCELURL'] = $baseUrl . $this->failureCallbackUrl;
+
+        $result = $this->hashCall('SetExpressCheckout', $request);
+
+        $ack = strtoupper($result['ACK']);
         if ($ack == 'SUCCESS' || $ack == 'SUCCESSWITHWARNING') {
-            $token = urldecode($resArray['TOKEN']);
+            $token = urldecode($result['TOKEN']);
         } else {
-            $error = urldecode($resArray['L_LONGMESSAGE0']);
+            $error = urldecode($result['L_LONGMESSAGE0']);
             throw new \RuntimeException($error);
         }
 
@@ -207,17 +191,30 @@ class PayPalClient
      *
      * @return array The NVP Collection object of the GetExpressCheckoutDetails Call Response
      */
-    public static function getShippingDetails($token)
+    public function getShippingDetails($token)
     {
         $attrs = array('TOKEN' => $token);
-        $response = self::hashCall('GetExpressCheckoutDetails',$attrs);
+        $response = $this->hashCall('GetExpressCheckoutDetails', $attrs);
 
         $ack = strtoupper($response['ACK']);
         if ($ack !== 'SUCCESS' && $ack !== 'SUCCESSWITHWARNING') {
-            $error = urldecode($resArray['L_LONGMESSAGE0']);
+            $error = urldecode($response['L_LONGMESSAGE0']);
             throw new \RuntimeException($error);
         }
 
         return $response;
+    }
+    public function confirmPayment($token, $payerId, $amount, $paymentType='sale', $currencyCodeType = 'GBP')
+    {
+        $request = [
+            'TOKEN' => $token,
+            'PAYERID' => $payerId,
+            'PAYMENTREQUEST_0_PAYMENTACTION' => $paymentType,
+            'PAYMENTREQUEST_0_AMT' => $amount,
+            'PAYMENTREQUEST_0_CURRENCYCODE' => $currencyCodeType,
+            'IPADDRESS' => $_SERVER['SERVER_NAME'],
+        ];
+
+        return $this->hashCall('DoExpressCheckoutPayment', $request);
     }
 }

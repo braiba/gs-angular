@@ -77,7 +77,7 @@ abstract class ImageMagickProcessingFactory extends ImageProcessingFactory
         proc_close($process);
 
         if (!empty($stdErr)){
-            throw new \RuntimeException('ImageMagick reported an error:' . $stdErr);
+            throw new \RuntimeException('ImageMagick reported an error (command: ' . $command . '):' . $stdErr);
         }
 
         $imageResource = imagecreatefromstring($stdOut);

@@ -78,6 +78,8 @@
                     offer: resolveOffer
                 }
             })
+            .when('/sorry', {templateUrl: 'views/sorry.html'})
+            .when('/thank-you', {templateUrl: 'views/thank-you.html'})
             .otherwise({templateUrl: 'views/not-found.html'});
     }
 

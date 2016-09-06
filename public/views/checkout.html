@@ -93,7 +93,11 @@
     </tfoot>
 </table>
 
-<form method="post" action="./order/expresscheckout" ng-show="vm.itemCount !== 0">
+<form
+    method="post"
+    ng-show="vm.itemCount !== 0"
+    ng-submit="vm.submitCheckout()"
+>
     <p style="text-align:center">
         <input
             type="image"

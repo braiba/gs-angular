@@ -22,7 +22,7 @@ class Application
 
         $view = $this->callAction($controller, $route->getAction(), $route->getParams());
 
-        echo $view->render();
+        $view->render();
     }
 
     /**

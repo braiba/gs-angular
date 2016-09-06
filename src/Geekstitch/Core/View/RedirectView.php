@@ -2,15 +2,15 @@
 
 namespace Geekstitch\Core\View;
 
-class JsonView extends AbstractView
+class RedirectView extends AbstractView
 {
     protected $statusCode;
 
-    protected $data = array();
+    protected $path = '/';
 
-    public function __construct($data, $statusCode = 200)
+    public function __construct($path, $statusCode = 302)
     {
-        $this->data = $data;
+        $this->path = $path;
         $this->statusCode = $statusCode;
     }
 
@@ -19,10 +19,8 @@ class JsonView extends AbstractView
      */
     public function render()
     {
-        header('Content-Type: application/json');
+        header('Location: ' . $this->path);
 
         http_response_code($this->statusCode);
-
-        echo json_encode($this->data);
     }
 }

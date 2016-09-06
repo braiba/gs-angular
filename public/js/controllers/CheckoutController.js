@@ -5,9 +5,9 @@
         .module('geekstitch')
         .controller('CheckoutController', CheckoutController);
 
-    CheckoutController.$inject = ['$http', 'Cart', 'ShippingType'];
+    CheckoutController.$inject = ['$http', '$window', 'Cart', 'ShippingType'];
 
-    function CheckoutController($http, Cart, ShippingType) {
+    function CheckoutController($http, $window, Cart, ShippingType) {
         var vm = this;
 
         vm.data = {
@@ -24,6 +24,7 @@
         vm.setPackQuantity = setPackQuantity;
         vm.removeCartItem = removeCartItem;
         vm.selectShippingType = selectShippingType;
+        vm.submitCheckout = submitCheckout;
 
         activate();
 
@@ -68,6 +69,18 @@
 
         function selectShippingType(handle) {
             Cart.setShippingType(handle);
+        }
+
+        function submitCheckout() {
+            $http.post('./checkout/payment')
+                .then(function(res){
+                    if (res.data.success) {
+                        $window.location.href = res.data.redirect;
+                        return;
+                    }
+
+                    // TODO: handle error
+                });
         }
     }
 })();
