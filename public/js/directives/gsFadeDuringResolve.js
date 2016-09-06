@@ -5,9 +5,9 @@
         .module('geekstitch')
         .directive('gsFadeDuringResolve', FadeDuringResolve);
 
-    FadeDuringResolve.$inject = ['$rootScope', '$timeout'];
+    FadeDuringResolve.$inject = ['$rootScope'];
 
-    function FadeDuringResolve($rootScope, $timeout) {
+    function FadeDuringResolve($rootScope) {
         return {
             restrict: 'A',
             link: function(scope, element) {
@@ -18,6 +18,10 @@
                 });
 
                 $rootScope.$on('$routeChangeSuccess', function() {
+                    element.removeClass('faded');
+                });
+
+                $rootScope.$on('$routeChangeError', function() {
                     element.removeClass('faded');
                 });
             }
