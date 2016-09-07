@@ -118,7 +118,17 @@ class Basket
         if (isset($productIdIndex[$productId])) {
             $index = $productIdIndex[$productId];
             $quantityDiff = $quantity - $this->items[$index]->getQuantity();
-            $this->items[$index]->setQuantity($quantity);
+            $basketItem = $this->items[$index];
+
+            if ($quantity === 0) {
+                $em = Di::getInstance()->getEntityManager();
+
+                unset($this->items[$index]);
+                $em->remove($basketItem);
+                $em->flush($basketItem);
+            } else {
+                $basketItem->setQuantity($quantity);
+            }
         } else {
             $basketItem = new BasketItem();
 

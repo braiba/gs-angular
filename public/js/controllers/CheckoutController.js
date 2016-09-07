@@ -40,7 +40,7 @@
         }
 
         function refreshCartData() {
-            vm.items = Cart.getItems();
+            vm.items = angular.copy(Cart.getItems());
             vm.shippingType = Cart.getShippingType();
             vm.itemCount = Cart.getItemCount();
             vm.totalCost = Cart.getTotalCost();

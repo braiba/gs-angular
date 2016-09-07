@@ -55,13 +55,12 @@
                 {{ (cartItem.product.price * cartItem.quantity)|currency:"&pound;" }}
             </td>
             <td>
-                <img
-                    width="24"
-                    height="24"
-                    src="./img/icon/delete.gif"
-                    alt="del"
+                <div
+                    class="btn btn-xs"
                     ng-click="vm.removeCartItem(cartItem.product.handle)"
-                />
+                >
+                    <i class="fa fa-trash"></i>
+                </div>
             </td>
         </tr>
     </tbody>

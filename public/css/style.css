@@ -260,6 +260,12 @@ a.btn {
     background-color: #B10000;
 }
 
+.btn-xs {
+    border-radius: 3px;
+    padding: 3px;
+    text-align: center;
+}
+
 .btn-large {
     padding: 10px 28px;
     font-size: 18pt;

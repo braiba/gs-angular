@@ -142,6 +142,9 @@
             if (!vm.cart.items.hasOwnProperty(packHandle)) {
                 return;
             }
+            if (vm.cart.items[packHandle].quantity === count) {
+                return; // No change
+            }
 
             vm.cart.items[packHandle].quantity = count;
 
