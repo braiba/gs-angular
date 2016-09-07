@@ -28,6 +28,9 @@ return array(
             ],
         ],
     ],
+    'notifications' => [
+        'order' => null,
+    ],
     'paypal' => array(
         'apiEndpoint' => 'https://api-3t.paypal.com/nvp',
         'payPalRedirectUrl' => 'https://www.paypal.com/cgi-bin/webscr',
@@ -38,11 +41,6 @@ return array(
         'signature' => 'ARJgxv7P5ty.F5oRDHterBK.w8tZArDf4D5YAQbDENfykkFMnrL2WeRJ',
         'version' => 64,
     ),
-    'site' => [
-        'debug' => false,
-        'path' => '',
-        'baseUrl' => '',
-    ],
     'routes' => array(
         'GET cart' => array(
             'controller' => 'cart',
@@ -89,4 +87,9 @@ return array(
             'action' => 'failure',
         ),
     ),
+    'site' => [
+        'debug' => false,
+        'path' => '',
+        'baseUrl' => '',
+    ],
 );

@@ -34,34 +34,34 @@ class PayPalPaymentRequest
         $this->items[] = $requestItem;
     }
 
-    public function toArray()
+    public function toArray($paymentRequestIndex = 0)
     {
         $array = [];
 
+        $prefix = 'PAYMENTREQUEST_' . $paymentRequestIndex . '_';
+
         if ($this->invoiceNumber) {
-            $array['INVNUM'] = $this->invoiceNumber;
+            $array[$prefix . 'INVNUM'] = $this->invoiceNumber;
         }
 
         if ($this->description) {
-            $array['DESC'] = $this->description;
+            $array[$prefix . 'DESC'] = $this->description;
         }
 
         $itemAmount = 0;
-        foreach ($this->items as $i => $item) {
-            foreach ($item->toArray() as $key => $value) {
-                $array[$key . $i] = $value;
-            }
+        foreach ($this->items as $itemIndex => $item) {
+            $array += $item->toArray($paymentRequestIndex, $itemIndex);
 
             $itemAmount += $item->cost;
         }
 
         if ($this->currencyCode) {
-            $array['CURRENCYCODE'] = $this->currencyCode;
+            $array[$prefix . 'CURRENCYCODE'] = $this->currencyCode;
         }
 
-        $array['ITEMAMT'] = $itemAmount;
-        $array['SHIPPINGAMT'] = $this->shippingAmount;
-        $array['AMT'] = $itemAmount + $this->shippingAmount;
+        $array[$prefix . 'ITEMAMT'] = $itemAmount;
+        $array[$prefix . 'SHIPPINGAMT'] = $this->shippingAmount;
+        $array[$prefix . 'AMT'] = $itemAmount + $this->shippingAmount;
 
         return $array;
     }

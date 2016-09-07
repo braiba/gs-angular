@@ -22,7 +22,7 @@ class PayPalController
 
         $basket = $di->getBasket();
         $payPalClient = $di->getPayPalClient();
-        session_regenerate_id(true);
+
         try {
             $order = new PayPalOrder();
 
@@ -53,15 +53,20 @@ class PayPalController
         $token = $_REQUEST['token'];
         error_log('PayPal Token: '.$token); // Throw this to the error log, just in case
 
-        $payPalClient = Di::getInstance()->getPayPalClient();
+        $di = Di::getInstance();
+        $payPalClient = $di->getPayPalClient();
 
         $shippingDetails = $payPalClient->getShippingDetails($token);
 
         error_log(print_r($shippingDetails,true)); // Also just in case
 
-        $em = Di::getInstance()->getEntityManager();
+        $em = $di->getEntityManager();
 
         $sessionId = $shippingDetails['PAYMENTREQUEST_0_INVNUM'];
+
+        if (!session_id()) {
+            session_start();
+        }
 
         if ($sessionId === session_id()) {
             session_regenerate_id(true);
@@ -119,8 +124,10 @@ class PayPalController
             );
             $message = implode("\r\n",$items)."\r\n\r\n".implode("\r\n",$address);
 
-            // mail('contactus@geekstitch.co.uk','Geekstitch Order',$message,'From: contactus@geekstitch.co.uk');
-            mail('braibagrasshand+gs-sandbox@gmail.com', 'Geekstitch Order', $message, 'From: contactus@geekstitch.co.uk');
+            $toAddress = $di->getConfig()->get('notifications')->getValue('order');
+            if ($toAddress) {
+                mail($toAddress, 'Geekstitch Order', $message, 'From: contactus@geekstitch.co.uk');
+            }
         }
         
         $res = $payPalClient->confirmPayment($token, $shippingDetails['PAYERID'], $shippingDetails['AMT']);

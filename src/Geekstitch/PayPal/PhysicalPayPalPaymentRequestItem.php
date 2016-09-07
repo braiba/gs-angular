@@ -7,13 +7,14 @@ class PhysicalPayPalPaymentRequestItem extends PayPalPaymentRequestItem
     /**
      * @inheritDoc
      */
-    public function toArray()
+    public function toArray($paymentRequestIndex = 0, $itemIndex = 0)
     {
+        $prefix = 'L_PAYMENTREQUEST_' . $paymentRequestIndex . '_';
         return [
-            'ITEMCATEGORY' => 'Physical',
-            'NAME' => $this->name,
-            'AMT' => $this->cost,
-            'QTY' => $this->quantity,
+            $prefix . 'ITEMCATEGORY' . $itemIndex => 'Physical',
+            $prefix . 'NAME' . $itemIndex => $this->name,
+            $prefix . 'AMT' . $itemIndex => $this->cost,
+            $prefix . 'QTY' . $itemIndex => $this->quantity,
         ];
     }
 }

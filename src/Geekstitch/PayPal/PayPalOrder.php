@@ -18,9 +18,7 @@ class PayPalOrder
     {
         $array = [];
         foreach ($this->paymentRequests as $i => $paymentRequest) {
-            foreach ($paymentRequest->toArray() as $key => $value) {
-                $array['PAYMENTREQUEST_' . $i . '_' . $key] = $value;
-            }
+            $array += $paymentRequest->toArray($i);
         }
 
         return $array;

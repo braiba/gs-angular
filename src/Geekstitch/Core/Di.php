@@ -8,7 +8,7 @@ use Geekstitch\Core\Config\ArrayConfig;
 use Geekstitch\Core\Config\Config;
 use Geekstitch\Core\Router\Router;
 use Geekstitch\Entity\Basket;
-use Geekstitch\Paypal\PayPalClient;
+use Geekstitch\PayPal\PayPalClient;
 use PDO;
 
 class Di

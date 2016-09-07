@@ -21,5 +21,5 @@ abstract class PayPalPaymentRequestItem
      *
      * @return array
      */
-    public abstract function toArray();
+    public abstract function toArray($paymentRequestIndex = 0, $itemIndex = 0);
 }
